@@ -56,6 +56,7 @@ export type TaskRow = {
   due_at: string | null;
   is_recurring: boolean;
   created_at: string;
+  student_account_id: string | null;
   student_name: string | null;
   lead_name: string | null;
 };
@@ -162,6 +163,7 @@ export async function getTasks() {
         t.due_at::text,
         t.is_recurring,
         t.created_at::text,
+        t.student_account_id,
         s.student_name,
         l.name as lead_name
       from public.tasks t

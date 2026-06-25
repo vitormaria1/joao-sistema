@@ -19,14 +19,6 @@ export default async function MetodoPage() {
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
             Método
           </p>
-          <h2 className="mt-3 font-display text-3xl">
-            João anexa materiais aqui. O aluno acompanha na área dele.
-          </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-white/72">
-            Essa aba guarda a biblioteca do processo: PDFs, guias, referências e
-            materiais semanais. O aluno continua acompanhando a evolução na área
-            dele; aqui é o ponto de publicação do conteúdo.
-          </p>
         </article>
 
         <article className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
