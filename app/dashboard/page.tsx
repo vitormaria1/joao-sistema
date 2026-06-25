@@ -51,8 +51,8 @@ export default async function DashboardPage() {
 
   return (
     <SiteShell
-      title="Painel"
-      subtitle={`${profile.full_name} · método, evolução do aluno e execução.`}
+      title="Método"
+      subtitle={`${profile.full_name} · evolução do aluno, materiais e execução.`}
       accent="dark"
     >
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navItems = [
-  { href: "/dashboard", label: "Painel" },
+  { href: "/dashboard", label: "Método" },
   { href: "/crm", label: "CRM" },
   { href: "/alunos", label: "Alunos" },
   { href: "/tarefas", label: "Tarefas" },

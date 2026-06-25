@@ -9,11 +9,20 @@ const sections = [
     eyebrow: "Centro do sistema",
     title: "O método organiza toda a operação.",
     body:
-      "O dashboard não é uma vitrine de métricas soltas. Ele existe para mostrar a cadência do método, o avanço do aluno e o material que João entrega em cada etapa.",
+      "A aba central mostra como o processo funciona de ponta a ponta. O aluno acompanha a própria evolução em uma área dedicada e o João distribui os materiais no contexto certo.",
     bullets: [
-      "Uma trilha única guia a jornada do aluno do início ao fechamento.",
-      "O sistema mantém a operação alinhada ao método, não ao improviso.",
-      "Cada etapa pode ser acompanhada e atualizada sem sair do fluxo.",
+      {
+        label: "Aluno acompanha",
+        text: "A evolução aparece por semana, com status, notas e progresso visível.",
+      },
+      {
+        label: "João anexa",
+        text: "Os materiais entram ligados ao aluno ou à tarefa, sem dispersão.",
+      },
+      {
+        label: "Sistema guia",
+        text: "Cada etapa fica organizada dentro do fluxo do método, não em cards soltos.",
+      },
     ],
   },
   {
@@ -22,11 +31,20 @@ const sections = [
     eyebrow: "Acompanhamento do aluno",
     title: "O aluno enxerga seu progresso de forma simples.",
     body:
-      "A área do aluno mostra semana atual, avanço acumulado, renovação e anotações. Isso reduz dúvidas e facilita a continuidade do processo.",
+      "A tela de alunos concentra semana atual, avanço acumulado, renovação e observações. O progresso fica legível para o cliente e operacional para a equipe.",
     bullets: [
-      "Semanas de progresso organizadas do 1 ao 6.",
-      "Notas e status ficam visíveis na carteira de alunos.",
-      "O avanço pode ser atualizado sem complicação para o time.",
+      {
+        label: "Semana atual",
+        text: "Mostra o avanço entre a semana 1 e a 6.",
+      },
+      {
+        label: "Status",
+        text: "Ativo, pausado ou finalizado, atualizado em um único ponto.",
+      },
+      {
+        label: "Notas",
+        text: "Observações acompanham a matrícula e não se perdem.",
+      },
     ],
   },
   {
@@ -35,11 +53,20 @@ const sections = [
     eyebrow: "Entrega operacional",
     title: "João anexa os materiais diretamente na rotina.",
     body:
-      "Arquivos, referências e anexos ficam ligados ao aluno ou à tarefa. Isso deixa a entrega rastreável e evita conteúdo espalhado em conversas.",
+      "Arquivos, referências e anexos ficam ligados ao aluno ou à tarefa. Isso evita conteúdo espalhado em conversa e deixa a entrega rastreável.",
     bullets: [
-      "Materiais podem ser anexados por aluno ou por tarefa.",
-      "Os documentos ficam reunidos no contexto correto.",
-      "A equipe acessa o que precisa sem procurar fora do sistema.",
+      {
+        label: "Por aluno",
+        text: "Cada matrícula pode receber materiais próprios.",
+      },
+      {
+        label: "Por tarefa",
+        text: "Anexos de operação e acompanhamento ficam centralizados.",
+      },
+      {
+        label: "Consulta rápida",
+        text: "A equipe acessa o conteúdo sem sair da tela em uso.",
+      },
     ],
   },
 ] as const;
@@ -94,10 +121,13 @@ export function MethodPanel() {
           <div className="mt-6 grid gap-3 md:grid-cols-3">
             {currentSection.bullets.map((bullet) => (
               <div
-                key={bullet}
-                className="rounded-[1.2rem] border border-white/10 bg-white/5 px-4 py-4 text-sm text-white/72"
+                key={bullet.label}
+                className="rounded-[1.2rem] border border-white/10 bg-white/5 px-4 py-4"
               >
-                {bullet}
+                <p className="text-[11px] uppercase tracking-[0.22em] text-white/45">
+                  {bullet.label}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-white/72">{bullet.text}</p>
               </div>
             ))}
           </div>
