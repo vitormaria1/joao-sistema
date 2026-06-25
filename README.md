@@ -43,7 +43,7 @@ Required repository secrets:
 
 - `VPS_HOST`
 - `VPS_USER`
-- `VPS_SSH_KEY`
+- `VPS_PASSWORD`
 - `VPS_PORT`
 - `VPS_PATH`
 
@@ -53,3 +53,4 @@ Server requirements:
 - Git installed
 - `npm` available
 - `pm2` recommended for process restarts
+- SSH password login enabled for the deployment user
