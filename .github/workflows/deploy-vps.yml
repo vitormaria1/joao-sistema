@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: deploy-vps-main
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,8 +25,12 @@ jobs:
           script: |
             set -euo pipefail
             cd "${{ secrets.VPS_PATH || vars.VPS_PATH }}"
+            exec 9>/tmp/joao-sistema-deploy.lock
+            flock 9
+            trap 'rm -f /tmp/joao-sistema-deploy.lock' EXIT
             git fetch origin main
             git reset --hard origin/main
+            rm -rf .next
             npm ci
             npm run build
             if command -v pm2 >/dev/null 2>&1; then
