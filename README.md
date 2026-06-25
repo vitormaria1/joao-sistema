@@ -34,3 +34,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploy on VPS
+
+This repository also includes a GitHub Actions workflow that deploys to a VPS on every push to `main`.
+
+Required repository secrets:
+
+- `VPS_HOST`
+- `VPS_USER`
+- `VPS_SSH_KEY`
+- `VPS_PORT`
+- `VPS_PATH`
+
+Server requirements:
+
+- Node.js installed
+- Git installed
+- `npm` available
+- `pm2` recommended for process restarts
