@@ -1,4 +1,5 @@
 import { SiteShell } from "@/app/_components/site-shell";
+import { MethodTabs } from "@/app/dashboard/_components/method-tabs";
 import { createLead, createProgram } from "@/app/dashboard/actions";
 import { getCurrentProfile } from "@/lib/auth";
 import {
@@ -6,7 +7,6 @@ import {
   getPrograms,
   getLeads,
 } from "@/lib/dashboard-data";
-import { getDatabaseHealth } from "@/lib/db";
 import { weeklyFlow } from "@/lib/platform-data";
 
 const stageLabels = {
@@ -20,7 +20,6 @@ const stageLabels = {
 
 export default async function DashboardPage() {
   const profile = await getCurrentProfile();
-  const dbHealth = await getDatabaseHealth().catch(() => null);
   const [programs, leads, summary] = await Promise.all([
     getPrograms(),
     getLeads(),
@@ -53,7 +52,7 @@ export default async function DashboardPage() {
   return (
     <SiteShell
       title="Painel"
-      subtitle={`${profile.full_name} · visão operacional em tempo real.`}
+      subtitle={`${profile.full_name} · método, evolução do aluno e execução.`}
       accent="dark"
     >
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -71,37 +70,7 @@ export default async function DashboardPage() {
         ))}
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
-        <article className="rounded-[1.75rem] border border-white/10 bg-[var(--color-teal)]/18 p-5">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
-            Base conectada
-          </p>
-          <h2 className="mt-3 font-display text-3xl">Dados ao vivo</h2>
-          {dbHealth ? (
-            <div className="mt-5 space-y-2 text-sm text-white/75">
-              <p>Banco: {dbHealth.database_name}</p>
-              <p>Schema: {dbHealth.schema_name}</p>
-              <p>Servidor: {dbHealth.server_time}</p>
-            </div>
-          ) : (
-            <p className="mt-5 text-sm text-white/70">
-              Conexão temporariamente indisponível.
-            </p>
-          )}
-        </article>
-
-        <article className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
-            Foco
-          </p>
-          <h2 className="mt-3 font-display text-3xl">
-            Operação, conversão e acompanhamento
-          </h2>
-          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">
-            Central de controle para comercial, alunos e execução interna.
-          </p>
-        </article>
-      </section>
+      <MethodTabs />
 
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <article className="rounded-[2rem] border border-white/10 bg-[#f3ede2] p-6 text-[var(--color-ink)]">
@@ -187,7 +156,7 @@ export default async function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
-                Fluxo
+                Método
               </p>
               <h2 className="mt-2 font-display text-3xl">Semana a semana</h2>
             </div>
