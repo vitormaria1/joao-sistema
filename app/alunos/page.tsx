@@ -58,7 +58,7 @@ export default async function AlunosPage() {
     <SiteShell
       title="Alunos"
       subtitle={`${profile.full_name} · desenvolvimento no método.`}
-      accent="light"
+      accent="dark"
     >
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {studentMetrics.map((metric) => (

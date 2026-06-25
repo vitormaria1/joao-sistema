@@ -11,7 +11,7 @@ export default async function RelatoriosPage() {
     <SiteShell
       title="Relatórios"
       subtitle={`${profile.full_name} · indicadores e exportação.`}
-      accent="light"
+      accent="dark"
     >
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {[
