@@ -55,7 +55,7 @@ export async function getCurrentProfile() {
   if (!user) {
     return {
       id: "dev-mode",
-      full_name: "Modo desenvolvimento",
+      full_name: "Operação",
       role: "admin" as const,
       avatar_url: null,
     };
