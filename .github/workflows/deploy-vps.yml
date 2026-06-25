@@ -13,20 +13,20 @@ jobs:
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT }}
+          host: ${{ secrets.VPS_HOST || vars.VPS_HOST }}
+          username: ${{ secrets.VPS_USER || vars.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY || vars.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || vars.VPS_PORT || 22 }}
           script_stop: true
           script: |
             set -euo pipefail
-            cd "${{ secrets.VPS_PATH }}"
+            cd "${{ secrets.VPS_PATH || vars.VPS_PATH }}"
             git fetch origin main
             git reset --hard origin/main
             npm ci
             npm run build
             if command -v pm2 >/dev/null 2>&1; then
-              APP_DIR="${{ secrets.VPS_PATH }}" pm2 startOrReload ecosystem.config.cjs --only joao-sistema --update-env
+              APP_DIR="${{ secrets.VPS_PATH || vars.VPS_PATH }}" pm2 startOrReload ecosystem.config.cjs --only joao-sistema --update-env
             else
               pkill -f "next start" || true
               nohup npm run start > joao-sistema.log 2>&1 &
