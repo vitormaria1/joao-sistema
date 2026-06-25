@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navItems = [
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/metodo", label: "Método" },
   { href: "/crm", label: "CRM" },
   { href: "/alunos", label: "Alunos" },
@@ -65,7 +66,7 @@ export function SiteShell({
               </p>
             </div>
 
-            {pathname === "/metodo" ? (
+            {pathname === "/dashboard" || pathname === "/metodo" ? (
               <div
                 className={
                   dark
@@ -76,7 +77,9 @@ export function SiteShell({
                 <p className="text-[11px] uppercase tracking-[0.28em] text-current/60">
                   Aba ativa
                 </p>
-                <p className="mt-1 text-lg font-semibold">Método</p>
+                <p className="mt-1 text-lg font-semibold">
+                  {pathname === "/metodo" ? "Método" : "Dashboard"}
+                </p>
               </div>
             ) : null}
 

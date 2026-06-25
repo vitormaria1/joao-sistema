@@ -79,6 +79,15 @@ export type AttachmentRow = {
   created_at: string;
 };
 
+export type MethodMaterialRow = {
+  id: string;
+  title: string;
+  file_url: string;
+  description: string | null;
+  week_number: number;
+  created_at: string;
+};
+
 export async function getPrograms() {
   return sql<ProgramRow[]>`
     select id, slug, name, kind, duration_weeks, is_active, created_at::text
@@ -215,6 +224,20 @@ export async function getAttachments() {
       created_at::text
     from public.attachments
     order by created_at desc
+  `;
+}
+
+export async function getMethodMaterials() {
+  return sql<MethodMaterialRow[]>`
+    select
+      id,
+      title,
+      file_url,
+      description,
+      week_number,
+      created_at::text
+    from public.method_materials
+    order by week_number asc, created_at desc
   `;
 }
 

@@ -233,3 +233,22 @@ export async function createAttachment(formData: FormData) {
   revalidatePath("/tarefas");
   revalidatePath("/relatorios");
 }
+
+export async function createMethodMaterial(formData: FormData) {
+  const title = required(formData, "title");
+  const fileUrl = required(formData, "fileUrl");
+  const description = required(formData, "description") || null;
+  const weekNumber = Number(formData.get("weekNumber") ?? 1);
+
+  if (!title || !fileUrl) {
+    throw new Error("Material precisa de título e URL.");
+  }
+
+  await sql`
+    insert into public.method_materials (title, file_url, description, week_number, created_by)
+    values (${title}, ${fileUrl}, ${description}, ${weekNumber}, null)
+  `;
+
+  revalidatePath("/metodo");
+  revalidatePath("/dashboard");
+}

@@ -22,10 +22,10 @@ export default function Home() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/metodo"
+              href="/dashboard"
               className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-ink)] transition hover:brightness-105"
             >
-              Abrir método
+              Abrir dashboard
             </Link>
           </div>
         </article>

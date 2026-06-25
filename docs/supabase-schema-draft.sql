@@ -70,6 +70,16 @@ create table if not exists public.attachments (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.method_materials (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  file_url text not null,
+  description text,
+  week_number integer not null default 1 check (week_number between 1 and 6),
+  created_by uuid references public.profiles (id) on delete set null,
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.tasks (
   id uuid primary key default gen_random_uuid(),
   created_by uuid references public.profiles (id) on delete restrict,
@@ -100,6 +110,7 @@ alter table public.student_accounts enable row level security;
 alter table public.crm_leads enable row level security;
 alter table public.lead_activities enable row level security;
 alter table public.attachments enable row level security;
+alter table public.method_materials enable row level security;
 alter table public.tasks enable row level security;
 alter table public.task_comments enable row level security;
 
