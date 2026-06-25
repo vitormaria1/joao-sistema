@@ -11,18 +11,22 @@ export type AppProfile = {
 };
 
 export const getAuthenticatedUser = cache(async () => {
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.getClaims();
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase.auth.getClaims();
 
-  if (error || !data?.claims?.sub) {
+    if (error || !data?.claims?.sub) {
+      return null;
+    }
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    return user;
+  } catch {
     return null;
   }
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return user;
 });
 
 export async function requireUser() {
@@ -38,21 +42,41 @@ export async function ensureProfile(user: User) {
       ? user.user_metadata.full_name.trim()
       : user.email ?? "Novo usuário";
 
-  const rows = await sql<AppProfile[]>`
-    insert into public.profiles (id, full_name, role)
-    values (${user.id}, ${fullName}, 'student')
-    on conflict (id) do update
-      set full_name = coalesce(public.profiles.full_name, excluded.full_name)
-    returning id, full_name, role, avatar_url
-  `;
+  try {
+    const rows = await sql<AppProfile[]>`
+      insert into public.profiles (id, full_name, role)
+      values (${user.id}, ${fullName}, 'student')
+      on conflict (id) do update
+        set full_name = coalesce(public.profiles.full_name, excluded.full_name)
+      returning id, full_name, role, avatar_url
+    `;
 
-  return rows[0];
+    return rows[0];
+  } catch {
+    return {
+      id: user.id,
+      full_name: fullName,
+      role: "student",
+      avatar_url: null,
+    };
+  }
 }
 
 export async function getCurrentProfile() {
-  const user = await requireUser();
+  try {
+    const user = await requireUser();
 
-  if (!user) {
+    if (!user) {
+      return {
+        id: "dev-mode",
+        full_name: "Operação",
+        role: "admin" as const,
+        avatar_url: null,
+      };
+    }
+
+    return ensureProfile(user);
+  } catch {
     return {
       id: "dev-mode",
       full_name: "Operação",
@@ -60,6 +84,4 @@ export async function getCurrentProfile() {
       avatar_url: null,
     };
   }
-
-  return ensureProfile(user);
 }

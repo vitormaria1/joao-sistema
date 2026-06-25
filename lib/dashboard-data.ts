@@ -89,81 +89,97 @@ export type MethodMaterialRow = {
 };
 
 export async function getPrograms() {
-  return sql<ProgramRow[]>`
-    select id, slug, name, kind, duration_weeks, is_active, created_at::text
-    from public.programs
-    order by created_at desc
-  `;
+  try {
+    return await sql<ProgramRow[]>`
+      select id, slug, name, kind, duration_weeks, is_active, created_at::text
+      from public.programs
+      order by created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getLeads() {
-  return sql<LeadRow[]>`
-    select
-      id,
-      name,
-      whatsapp,
-      instagram,
-      source,
-      stage,
-      next_action,
-      next_action_at::text,
-      notes,
-      created_at::text
-    from public.crm_leads
-    order by created_at desc
-  `;
+  try {
+    return await sql<LeadRow[]>`
+      select
+        id,
+        name,
+        whatsapp,
+        instagram,
+        source,
+        stage,
+        next_action,
+        next_action_at::text,
+        notes,
+        created_at::text
+      from public.crm_leads
+      order by created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getStudents() {
-  return sql<StudentRow[]>`
-    select
-      s.id,
-      s.student_name,
-      s.student_email,
-      s.contact_whatsapp,
-      s.status,
-      s.week_number,
-      s.started_at::text,
-      s.renewal_date::text,
-      s.notes,
-      s.created_at::text,
-      s.program_id,
-      p.name as program_name,
-      p.kind as program_kind,
-      p.duration_weeks
-    from public.student_accounts s
-    join public.programs p on p.id = s.program_id
-    order by s.created_at desc
-  `;
+  try {
+    return await sql<StudentRow[]>`
+      select
+        s.id,
+        s.student_name,
+        s.student_email,
+        s.contact_whatsapp,
+        s.status,
+        s.week_number,
+        s.started_at::text,
+        s.renewal_date::text,
+        s.notes,
+        s.created_at::text,
+        s.program_id,
+        p.name as program_name,
+        p.kind as program_kind,
+        p.duration_weeks
+      from public.student_accounts s
+      join public.programs p on p.id = s.program_id
+      order by s.created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getTasks() {
-  return sql<TaskRow[]>`
-    select
-      t.id,
-      t.title,
-      t.description,
-      t.area,
-      t.priority,
-      t.status,
-      t.due_at::text,
-      t.is_recurring,
-      t.created_at::text,
-      s.student_name,
-      l.name as lead_name
-    from public.tasks t
-    left join public.student_accounts s on s.id = t.student_account_id
-    left join public.crm_leads l on l.id = t.lead_id
-    order by
-      case t.priority
-        when 'urgente' then 1
-        when 'alta' then 2
-        when 'media' then 3
-        else 4
-      end,
-      coalesce(t.due_at, now()) asc,
-      t.created_at desc
-  `;
+  try {
+    return await sql<TaskRow[]>`
+      select
+        t.id,
+        t.title,
+        t.description,
+        t.area,
+        t.priority,
+        t.status,
+        t.due_at::text,
+        t.is_recurring,
+        t.created_at::text,
+        s.student_name,
+        l.name as lead_name
+      from public.tasks t
+      left join public.student_accounts s on s.id = t.student_account_id
+      left join public.crm_leads l on l.id = t.lead_id
+      order by
+        case t.priority
+          when 'urgente' then 1
+          when 'alta' then 2
+          when 'media' then 3
+          else 4
+        end,
+        coalesce(t.due_at, now()) asc,
+        t.created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getDashboardSummary() {
@@ -172,21 +188,21 @@ export async function getDashboardSummary() {
       select count(*)::int as total
       from public.student_accounts
       where status = 'active'
-    `,
+    `.catch(() => [{ total: 0 }]),
     sql<{ total: number }[]>`
       select count(*)::int as total
       from public.crm_leads
-    `,
+    `.catch(() => [{ total: 0 }]),
     sql<{ total: number }[]>`
       select count(*)::int as total
       from public.tasks
       where status in ('backlog', 'todo', 'doing', 'review')
-    `,
+    `.catch(() => [{ total: 0 }]),
     sql<{ total: number }[]>`
       select count(*)::int as total
       from public.programs
       where is_active = true
-    `,
+    `.catch(() => [{ total: 0 }]),
   ]);
 
   return {
@@ -198,47 +214,59 @@ export async function getDashboardSummary() {
 }
 
 export async function getLeadActivities() {
-  return sql<LeadActivityRow[]>`
-    select
-      a.id,
-      a.lead_id,
-      a.activity_type,
-      a.content,
-      a.created_at::text,
-      l.name as lead_name
-    from public.lead_activities a
-    join public.crm_leads l on l.id = a.lead_id
-    order by a.created_at desc
-  `;
+  try {
+    return await sql<LeadActivityRow[]>`
+      select
+        a.id,
+        a.lead_id,
+        a.activity_type,
+        a.content,
+        a.created_at::text,
+        l.name as lead_name
+      from public.lead_activities a
+      join public.crm_leads l on l.id = a.lead_id
+      order by a.created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getAttachments() {
-  return sql<AttachmentRow[]>`
-    select
-      id,
-      entity_type,
-      entity_id,
-      title,
-      file_url,
-      kind,
-      created_at::text
-    from public.attachments
-    order by created_at desc
-  `;
+  try {
+    return await sql<AttachmentRow[]>`
+      select
+        id,
+        entity_type,
+        entity_id,
+        title,
+        file_url,
+        kind,
+        created_at::text
+      from public.attachments
+      order by created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getMethodMaterials() {
-  return sql<MethodMaterialRow[]>`
-    select
-      id,
-      title,
-      file_url,
-      description,
-      week_number,
-      created_at::text
-    from public.method_materials
-    order by week_number asc, created_at desc
-  `;
+  try {
+    return await sql<MethodMaterialRow[]>`
+      select
+        id,
+        title,
+        file_url,
+        description,
+        week_number,
+        created_at::text
+      from public.method_materials
+      order by week_number asc, created_at desc
+    `;
+  } catch {
+    return [];
+  }
 }
 
 export async function getLeadDetailData() {

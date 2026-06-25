@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navItems = [
@@ -25,8 +26,6 @@ export function SiteShell({
 }) {
   const dark = accent === "dark";
   const pathname = usePathname();
-  const router = useRouter();
-
   return (
     <main
       className={
@@ -88,10 +87,9 @@ export function SiteShell({
                 const active = pathname === item.href;
 
                 return (
-                  <button
+                  <Link
                     key={item.href}
-                    type="button"
-                    onClick={() => router.push(item.href)}
+                    href={item.href}
                     className={
                       dark
                         ? `flex h-11 items-center justify-between rounded-full px-4 text-sm transition ${
@@ -103,12 +101,12 @@ export function SiteShell({
                             active
                               ? "bg-[var(--color-ink)] text-[var(--color-paper)]"
                               : "border border-black/10 text-black/75 hover:bg-black/5"
-                          }`
+                        }`
                     }
                   >
                     <span>{item.label}</span>
                     <span className={active ? "opacity-100" : "opacity-35"}>•</span>
-                  </button>
+                  </Link>
                 );
               })}
             </nav>
