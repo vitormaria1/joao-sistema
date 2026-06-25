@@ -1,14 +1,22 @@
 import Link from "next/link";
+import { createAttachment } from "@/app/dashboard/actions";
 import {
   createStudentAccount,
   updateStudentProgress,
 } from "@/app/dashboard/actions";
 import { getCurrentProfile } from "@/lib/auth";
-import { getPrograms, getStudents } from "@/lib/dashboard-data";
+import { getAttachments, getPrograms, getStudents } from "@/lib/dashboard-data";
 
 export default async function AlunosPage() {
   const profile = await getCurrentProfile();
-  const [programs, students] = await Promise.all([getPrograms(), getStudents()]);
+  const [programs, students, attachments] = await Promise.all([
+    getPrograms(),
+    getStudents(),
+    getAttachments(),
+  ]);
+  const attachmentsByStudent = attachments.filter(
+    (item) => item.entity_type === "student",
+  );
 
   return (
     <main className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)]">
@@ -155,14 +163,31 @@ export default async function AlunosPage() {
                         </span>
                       </div>
 
-                      <div className="mt-4 h-2 rounded-full bg-black/5">
-                        <div
-                          className="h-2 rounded-full bg-[var(--color-teal)]"
-                          style={{ width: `${progress}%` }}
-                        />
-                      </div>
+                        <div className="mt-4 h-2 rounded-full bg-black/5">
+                          <div
+                            className="h-2 rounded-full bg-[var(--color-teal)]"
+                            style={{ width: `${progress}%` }}
+                          />
+                        </div>
 
-                      <form action={updateStudentProgress} className="mt-4 grid gap-3 md:grid-cols-3">
+                        <div className="mt-4 space-y-2">
+                          {attachmentsByStudent
+                            .filter((item) => item.entity_id === student.id)
+                            .slice(0, 3)
+                            .map((item) => (
+                              <a
+                                key={item.id}
+                                href={item.file_url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="block rounded-xl border border-black/8 bg-black/5 px-3 py-2 text-sm"
+                              >
+                                {item.title} · {item.kind}
+                              </a>
+                            ))}
+                        </div>
+
+                        <form action={updateStudentProgress} className="mt-4 grid gap-3 md:grid-cols-3">
                         <input type="hidden" name="studentAccountId" value={student.id} />
                         <select
                           name="status"
@@ -189,13 +214,42 @@ export default async function AlunosPage() {
                         <button
                           type="submit"
                           className="md:col-span-3 inline-flex h-11 items-center justify-center rounded-full bg-[var(--color-ink)] px-5 text-sm text-[var(--color-paper)]"
-                        >
-                          Atualizar progresso
-                        </button>
-                      </form>
-                    </div>
-                  );
-                })
+                          >
+                            Atualizar progresso
+                          </button>
+                        </form>
+
+                        <form action={createAttachment} className="mt-4 grid gap-2 md:grid-cols-2">
+                          <input type="hidden" name="entityType" value="student" />
+                          <input type="hidden" name="entityId" value={student.id} />
+                          <input
+                            name="title"
+                            placeholder="Título do material"
+                            className="h-11 rounded-xl border border-black/10 bg-white px-3 text-sm"
+                          />
+                          <input
+                            name="fileUrl"
+                            placeholder="URL do arquivo"
+                            className="h-11 rounded-xl border border-black/10 bg-white px-3 text-sm"
+                          />
+                          <select
+                            name="kind"
+                            defaultValue="material"
+                            className="h-11 rounded-xl border border-black/10 bg-white px-3 text-sm"
+                          >
+                            <option value="material">Material</option>
+                            <option value="attachment">Anexo</option>
+                          </select>
+                          <button
+                            type="submit"
+                            className="inline-flex h-11 items-center justify-center rounded-full border border-black/10 px-4 text-sm"
+                          >
+                            Adicionar anexo
+                          </button>
+                        </form>
+                      </div>
+                    );
+                  })
               )}
             </div>
           </article>

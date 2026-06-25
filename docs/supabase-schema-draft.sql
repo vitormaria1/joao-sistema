@@ -60,6 +60,16 @@ create table if not exists public.lead_activities (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.attachments (
+  id uuid primary key default gen_random_uuid(),
+  entity_type text not null check (entity_type in ('lead', 'student', 'task')),
+  entity_id uuid not null,
+  title text not null,
+  file_url text not null,
+  kind text not null check (kind in ('attachment', 'material')),
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.tasks (
   id uuid primary key default gen_random_uuid(),
   created_by uuid references public.profiles (id) on delete restrict,
@@ -89,6 +99,7 @@ alter table public.programs enable row level security;
 alter table public.student_accounts enable row level security;
 alter table public.crm_leads enable row level security;
 alter table public.lead_activities enable row level security;
+alter table public.attachments enable row level security;
 alter table public.tasks enable row level security;
 alter table public.task_comments enable row level security;
 

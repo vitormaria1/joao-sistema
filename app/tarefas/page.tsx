@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { createAttachment } from "@/app/dashboard/actions";
 import {
   createTask,
   updateTaskStatus,
 } from "@/app/dashboard/actions";
 import { getCurrentProfile } from "@/lib/auth";
-import { getLeads, getStudents, getTasks } from "@/lib/dashboard-data";
+import { getAttachments, getLeads, getStudents, getTasks } from "@/lib/dashboard-data";
 
 const statusLabels = {
   backlog: "Backlog",
@@ -30,11 +31,13 @@ const priorityLabels = {
 
 export default async function TarefasPage() {
   const profile = await getCurrentProfile();
-  const [tasks, students, leads] = await Promise.all([
+  const [tasks, students, leads, attachments] = await Promise.all([
     getTasks(),
     getStudents(),
     getLeads(),
+    getAttachments(),
   ]);
+  const attachmentsByTask = attachments.filter((item) => item.entity_type === "task");
 
   const groupedTasks = {
     backlog: tasks.filter((task) => task.status === "backlog"),
@@ -207,6 +210,23 @@ export default async function TarefasPage() {
                             {task.student_name || task.lead_name || "Sem vínculo"}
                           </p>
 
+                          <div className="mt-3 space-y-2">
+                            {attachmentsByTask
+                              .filter((item) => item.entity_id === task.id)
+                              .slice(0, 3)
+                              .map((item) => (
+                                <a
+                                  key={item.id}
+                                  href={item.file_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="block rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/75"
+                                >
+                                  {item.title} · {item.kind}
+                                </a>
+                              ))}
+                          </div>
+
                           <form action={updateTaskStatus} className="mt-3">
                             <input type="hidden" name="taskId" value={task.id} />
                             <select
@@ -225,6 +245,39 @@ export default async function TarefasPage() {
                               className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-full bg-white/10 text-xs text-white"
                             >
                               Atualizar
+                            </button>
+                          </form>
+
+                          <form action={createAttachment} className="mt-3 grid gap-2">
+                            <input type="hidden" name="entityType" value="task" />
+                            <input type="hidden" name="entityId" value={task.id} />
+                            <input
+                              name="title"
+                              placeholder="Título do material"
+                              className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                            />
+                            <input
+                              name="fileUrl"
+                              placeholder="URL do arquivo"
+                              className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                            />
+                            <select
+                              name="kind"
+                              defaultValue="attachment"
+                              className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                            >
+                              <option value="attachment" className="text-black">
+                                Anexo
+                              </option>
+                              <option value="material" className="text-black">
+                                Material
+                              </option>
+                            </select>
+                            <button
+                              type="submit"
+                              className="inline-flex h-10 items-center justify-center rounded-full bg-white/10 text-xs text-white"
+                            >
+                              Adicionar
                             </button>
                           </form>
                         </div>

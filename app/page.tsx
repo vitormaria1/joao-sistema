@@ -24,6 +24,12 @@ export default function Home() {
               Dashboard
             </Link>
             <Link
+              href="/crm"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--color-ink)]/15 px-5 text-sm transition hover:border-[var(--color-ink)]/35"
+            >
+              CRM
+            </Link>
+            <Link
               href="/alunos"
               className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--color-ink)]/15 px-5 text-sm transition hover:border-[var(--color-ink)]/35"
             >
@@ -34,6 +40,12 @@ export default function Home() {
               className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--color-ink)]/15 px-5 text-sm transition hover:border-[var(--color-ink)]/35"
             >
               Tarefas
+            </Link>
+            <Link
+              href="/relatorios"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--color-ink)]/15 px-5 text-sm transition hover:border-[var(--color-ink)]/35"
+            >
+              Relatórios
             </Link>
           </nav>
         </header>

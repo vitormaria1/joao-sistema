@@ -60,6 +60,25 @@ export type TaskRow = {
   lead_name: string | null;
 };
 
+export type LeadActivityRow = {
+  id: string;
+  lead_id: string;
+  activity_type: "note" | "follow_up" | "meeting" | "proposal" | "status_change";
+  content: string;
+  created_at: string;
+  lead_name: string;
+};
+
+export type AttachmentRow = {
+  id: string;
+  entity_type: "lead" | "student" | "task";
+  entity_id: string;
+  title: string;
+  file_url: string;
+  kind: "attachment" | "material";
+  created_at: string;
+};
+
 export async function getPrograms() {
   return sql<ProgramRow[]>`
     select id, slug, name, kind, duration_weeks, is_active, created_at::text
@@ -166,5 +185,68 @@ export async function getDashboardSummary() {
     leads: leads[0]?.total ?? 0,
     openTasks: tasks[0]?.total ?? 0,
     activePrograms: activePrograms[0]?.total ?? 0,
+  };
+}
+
+export async function getLeadActivities() {
+  return sql<LeadActivityRow[]>`
+    select
+      a.id,
+      a.lead_id,
+      a.activity_type,
+      a.content,
+      a.created_at::text,
+      l.name as lead_name
+    from public.lead_activities a
+    join public.crm_leads l on l.id = a.lead_id
+    order by a.created_at desc
+  `;
+}
+
+export async function getAttachments() {
+  return sql<AttachmentRow[]>`
+    select
+      id,
+      entity_type,
+      entity_id,
+      title,
+      file_url,
+      kind,
+      created_at::text
+    from public.attachments
+    order by created_at desc
+  `;
+}
+
+export async function getLeadDetailData() {
+  const [leads, activities, attachments] = await Promise.all([
+    getLeads(),
+    getLeadActivities(),
+    getAttachments(),
+  ]);
+
+  return { leads, activities, attachments };
+}
+
+export async function getReportData() {
+  const [summary, programs, students, tasks, leads, activities, attachments] =
+    await Promise.all([
+      getDashboardSummary(),
+      getPrograms(),
+      getStudents(),
+      getTasks(),
+      getLeads(),
+      getLeadActivities(),
+      getAttachments(),
+    ]);
+
+  return {
+    summary,
+    programs,
+    students,
+    tasks,
+    leads,
+    activities,
+    attachments,
   };
 }

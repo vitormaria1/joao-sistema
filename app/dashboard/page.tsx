@@ -83,6 +83,12 @@ export default async function DashboardPage() {
               Visão geral
             </Link>
             <Link
+              href="/crm"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
+            >
+              CRM
+            </Link>
+            <Link
               href="/alunos"
               className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
             >
@@ -93,6 +99,12 @@ export default async function DashboardPage() {
               className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
             >
               Tarefas
+            </Link>
+            <Link
+              href="/relatorios"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
+            >
+              Relatórios
             </Link>
           </nav>
         </header>

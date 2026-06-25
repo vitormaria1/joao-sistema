@@ -31,6 +31,9 @@ export const checklistSections: ChecklistSection[] = [
       { label: "CRM comercial", done: true },
       { label: "Gestão de tarefas", done: true },
       { label: "Progresso das 6 semanas", done: true },
+      { label: "Anexos e materiais", done: true },
+      { label: "Histórico de interações", done: true },
+      { label: "Relatórios em PDF", done: true },
     ],
   },
 ];

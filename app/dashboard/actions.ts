@@ -24,6 +24,7 @@ export async function createProgram(formData: FormData) {
   `;
 
   revalidatePath("/dashboard");
+  revalidatePath("/relatorios");
 }
 
 export async function createLead(formData: FormData) {
@@ -64,6 +65,8 @@ export async function createLead(formData: FormData) {
   `;
 
   revalidatePath("/dashboard");
+  revalidatePath("/crm");
+  revalidatePath("/relatorios");
 }
 
 export async function createStudentAccount(formData: FormData) {
@@ -108,6 +111,7 @@ export async function createStudentAccount(formData: FormData) {
 
   revalidatePath("/dashboard");
   revalidatePath("/alunos");
+  revalidatePath("/relatorios");
 }
 
 export async function createTask(formData: FormData) {
@@ -152,6 +156,7 @@ export async function createTask(formData: FormData) {
 
   revalidatePath("/dashboard");
   revalidatePath("/tarefas");
+  revalidatePath("/relatorios");
 }
 
 export async function updateTaskStatus(formData: FormData) {
@@ -166,6 +171,7 @@ export async function updateTaskStatus(formData: FormData) {
 
   revalidatePath("/dashboard");
   revalidatePath("/tarefas");
+  revalidatePath("/relatorios");
 }
 
 export async function updateStudentProgress(formData: FormData) {
@@ -184,4 +190,46 @@ export async function updateStudentProgress(formData: FormData) {
 
   revalidatePath("/dashboard");
   revalidatePath("/alunos");
+  revalidatePath("/relatorios");
+}
+
+export async function createLeadActivity(formData: FormData) {
+  const leadId = required(formData, "leadId");
+  const activityType = required(formData, "activityType");
+  const content = required(formData, "content");
+
+  if (!leadId || !content) {
+    throw new Error("Histórico de lead precisa de lead e texto.");
+  }
+
+  await sql`
+    insert into public.lead_activities (lead_id, author_id, activity_type, content)
+    values (${leadId}, null, ${activityType}, ${content})
+  `;
+
+  revalidatePath("/dashboard");
+  revalidatePath("/crm");
+  revalidatePath("/relatorios");
+}
+
+export async function createAttachment(formData: FormData) {
+  const entityType = required(formData, "entityType");
+  const entityId = required(formData, "entityId");
+  const title = required(formData, "title");
+  const fileUrl = required(formData, "fileUrl");
+  const kind = required(formData, "kind");
+
+  if (!entityType || !entityId || !title || !fileUrl) {
+    throw new Error("Anexo precisa de vínculo, título e URL.");
+  }
+
+  await sql`
+    insert into public.attachments (entity_type, entity_id, title, file_url, kind)
+    values (${entityType}, ${entityId}, ${title}, ${fileUrl}, ${kind})
+  `;
+
+  revalidatePath("/dashboard");
+  revalidatePath("/alunos");
+  revalidatePath("/tarefas");
+  revalidatePath("/relatorios");
 }
