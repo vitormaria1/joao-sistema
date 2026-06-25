@@ -65,6 +65,21 @@ export function SiteShell({
               </p>
             </div>
 
+            {pathname === "/dashboard" ? (
+              <div
+                className={
+                  dark
+                    ? "mt-6 rounded-[1.4rem] border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/12 px-4 py-3"
+                    : "mt-6 rounded-[1.4rem] border border-[var(--color-teal)]/20 bg-[var(--color-teal)]/8 px-4 py-3"
+                }
+              >
+                <p className="text-[11px] uppercase tracking-[0.28em] text-current/60">
+                  Aba ativa
+                </p>
+                <p className="mt-1 text-lg font-semibold">Método</p>
+              </div>
+            ) : null}
+
             <nav className="mt-8 grid gap-2">
               {navItems.map((item) => {
                 const active = pathname === item.href;
