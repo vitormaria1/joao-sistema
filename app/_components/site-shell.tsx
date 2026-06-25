@@ -85,24 +85,22 @@ export function SiteShell({
             <nav className="mt-8 grid gap-2">
               {navItems.map((item) => {
                 const active = pathname === item.href;
+                const baseClasses =
+                  "flex h-11 items-center justify-between rounded-full border px-4 text-sm transition";
+                const neutralClasses = dark
+                  ? "border-white/10 text-white/78 hover:bg-white/5"
+                  : "border-black/10 text-black/75 hover:bg-black/5";
 
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={
-                      dark
-                        ? `flex h-11 items-center justify-between rounded-full px-4 text-sm transition ${
-                            active
-                              ? "bg-[var(--color-gold)] text-[var(--color-ink)]"
-                              : "border border-white/10 text-white/78 hover:bg-white/5"
-                          }`
-                        : `flex h-11 items-center justify-between rounded-full px-4 text-sm transition ${
-                            active
-                              ? "bg-[var(--color-ink)] text-[var(--color-paper)]"
-                              : "border border-black/10 text-black/75 hover:bg-black/5"
-                        }`
+                      active
+                        ? `${baseClasses} ${neutralClasses} font-medium ring-1 ring-current/10`
+                        : `${baseClasses} ${neutralClasses}`
                     }
+                    aria-current={active ? "page" : undefined}
                   >
                     <span>{item.label}</span>
                     <span className={active ? "opacity-100" : "opacity-35"}>•</span>
