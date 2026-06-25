@@ -22,10 +22,10 @@ export default async function RelatoriosPage() {
         ].map((item) => (
           <article
             key={item.label}
-            className="rounded-[1.75rem] border border-black/8 bg-white p-5 shadow-[0_12px_40px_rgba(0,0,0,0.05)]"
+            className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5 shadow-[0_12px_40px_rgba(0,0,0,0.18)]"
           >
-            <p className="text-sm text-black/55">{item.label}</p>
-            <p className="mt-4 font-display text-5xl text-[var(--color-teal)]">
+            <p className="text-sm text-white/60">{item.label}</p>
+            <p className="mt-4 font-display text-5xl text-[var(--color-gold)]">
               {String(item.value).padStart(2, "0")}
             </p>
           </article>
@@ -33,43 +33,65 @@ export default async function RelatoriosPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
-        <article className="rounded-[2rem] border border-black/8 bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.05)]">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
+        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
+          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
             Visão
           </p>
-          <h2 className="mt-2 font-display text-3xl">Alunos e tarefas</h2>
+          <h2 className="mt-2 font-display text-3xl text-[var(--color-paper)]">
+            Alunos e tarefas
+          </h2>
           <div className="mt-6 space-y-3 text-sm">
             {students.slice(0, 5).map((student) => (
-              <div key={student.id} className="flex items-center justify-between rounded-2xl bg-black/5 px-4 py-3">
-                <span>{student.student_name}</span>
-                <span className="text-black/55">semana {student.week_number}/{student.duration_weeks}</span>
+              <div
+                key={student.id}
+                className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/10 px-4 py-3"
+              >
+                <span className="text-white">{student.student_name}</span>
+                <span className="text-white/55">
+                  semana {student.week_number}/{student.duration_weeks}
+                </span>
               </div>
             ))}
             {tasks.slice(0, 5).map((task) => (
-              <div key={task.id} className="flex items-center justify-between rounded-2xl bg-black/5 px-4 py-3">
-                <span>{task.title}</span>
-                <span className="text-black/55">{task.priority}</span>
+              <div
+                key={task.id}
+                className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/10 px-4 py-3"
+              >
+                <span className="text-white">{task.title}</span>
+                <span className="text-white/55">{task.priority}</span>
               </div>
             ))}
           </div>
         </article>
 
-        <article className="rounded-[2rem] border border-black/8 bg-[#f3ede2] p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
+        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
             Exportação
           </p>
-          <h2 className="mt-2 font-display text-3xl">Conteúdo consolidado</h2>
+          <h2 className="mt-2 font-display text-3xl text-[var(--color-paper)]">
+            Conteúdo consolidado
+          </h2>
           <div className="mt-6 grid gap-3 text-sm">
-            <div className="rounded-2xl bg-white px-4 py-3">Programas ativos: {programs.length}</div>
-            <div className="rounded-2xl bg-white px-4 py-3">Alunos: {students.length}</div>
-            <div className="rounded-2xl bg-white px-4 py-3">Leads: {leads.length}</div>
-            <div className="rounded-2xl bg-white px-4 py-3">Interações: {activities.length}</div>
-            <div className="rounded-2xl bg-white px-4 py-3">Anexos/materiais: {attachments.length}</div>
+            <div className="rounded-2xl border border-white/10 bg-black/10 px-4 py-3 text-white">
+              Programas ativos: {programs.length}
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/10 px-4 py-3 text-white">
+              Alunos: {students.length}
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/10 px-4 py-3 text-white">
+              Leads: {leads.length}
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/10 px-4 py-3 text-white">
+              Interações: {activities.length}
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-black/10 px-4 py-3 text-white">
+              Anexos/materiais: {attachments.length}
+            </div>
           </div>
 
           <Link
             href="/api/reports/export"
-            className="mt-6 inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-ink)] px-6 text-sm font-semibold text-[var(--color-paper)]"
+            className="mt-6 inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-ink)]"
           >
             Baixar PDF
           </Link>
