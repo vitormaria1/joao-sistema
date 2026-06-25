@@ -1,65 +1,112 @@
-import Image from "next/image";
+import Link from "next/link";
+import { checklistSections } from "@/lib/project-checklist";
+import { platformModules } from "@/lib/platform-data";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_top,rgba(31,103,119,0.18),transparent_32%),linear-gradient(180deg,#f6f1e8_0%,#f0e4d3_100%)] text-[var(--color-ink)]">
+      <div className="absolute inset-x-0 top-0 h-72 bg-[linear-gradient(180deg,rgba(23,24,29,0.9),rgba(23,24,29,0))]" />
+
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-8 lg:px-10 lg:py-10">
+        <header className="flex items-center justify-between rounded-full border border-white/30 bg-white/50 px-5 py-3 backdrop-blur">
+          <div>
+            <p className="text-[0.65rem] uppercase tracking-[0.35em] text-[var(--color-teal)]">
+              João Pedro
+            </p>
+            <p className="font-display text-2xl leading-none">Mileto</p>
+          </div>
+
+          <Link
+            href="/login"
+            className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--color-ink)] px-5 text-sm text-[var(--color-paper)] transition hover:bg-black"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            Entrar no sistema
+          </Link>
+        </header>
+
+        <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+          <article className="rounded-[2rem] bg-[var(--color-ink)] px-6 py-8 text-[var(--color-paper)] shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-10">
+            <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-sand)]">
+              Sistema em construção
+            </p>
+            <h1 className="mt-5 max-w-3xl font-display text-5xl leading-none sm:text-7xl">
+              Uma central premium para mentoria, CRM e operação dos clientes.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
+              A primeira versão já nasce alinhada ao posicionamento do João:
+              clareza estratégica, acompanhamento real do progresso e uma
+              operação menos espalhada entre ferramentas.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href="/login"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-ink)] transition hover:brightness-105"
+              >
+                Fazer login
+              </Link>
+              <a
+                href="../CHECKLIST.md"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-white/15 px-6 text-sm text-white/78 transition hover:border-white/30 hover:text-white"
+              >
+                Ver checklist do projeto
+              </a>
+            </div>
+          </article>
+
+          <article className="rounded-[2rem] border border-black/8 bg-white/70 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur sm:p-7">
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
+              Status atual
+            </p>
+            <h2 className="mt-3 font-display text-4xl leading-none">
+              Fundação iniciada
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-black/65">
+              Next.js pronto, direção visual definida, wiring de Supabase SSR
+              criado e modelo inicial do domínio preparado para a próxima etapa.
+            </p>
+
+            <div className="mt-6 space-y-4">
+              {checklistSections[0].items.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-center gap-3 rounded-[1.25rem] bg-[var(--color-paper)] px-4 py-3"
+                >
+                  <span
+                    className={`flex h-7 w-7 items-center justify-center rounded-full text-xs ${
+                      item.done
+                        ? "bg-[var(--color-teal)] text-white"
+                        : "bg-black/10 text-black/55"
+                    }`}
+                  >
+                    {item.done ? "OK" : "..."}
+                  </span>
+                  <span className="text-sm">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {platformModules.map((module) => (
+            <article
+              key={module.title}
+              className="rounded-[1.75rem] border border-black/8 bg-white/65 p-5 shadow-[0_20px_40px_rgba(0,0,0,0.05)]"
+            >
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
+                Módulo
+              </p>
+              <h3 className="mt-3 font-display text-3xl leading-none">
+                {module.title}
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-black/65">
+                {module.description}
+              </p>
+            </article>
+          ))}
+        </section>
+      </div>
+    </main>
   );
 }
