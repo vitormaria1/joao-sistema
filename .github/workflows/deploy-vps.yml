@@ -1,43 +1,12 @@
-name: Deploy to VPS
+name: Legacy Deploy Disabled
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-
-concurrency:
-  group: deploy-vps-main
-  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy over SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST || vars.VPS_HOST }}
-          username: ${{ secrets.VPS_USER || vars.VPS_USER }}
-          password: ${{ secrets.VPS_PASSWORD || vars.VPS_PASSWORD }}
-          port: ${{ secrets.VPS_PORT || vars.VPS_PORT || 22 }}
-          timeout: 60s
-          command_timeout: 30m
-          script_stop: true
-          script: |
-            set -euo pipefail
-            cd "${{ secrets.VPS_PATH || vars.VPS_PATH }}"
-            exec 9>/tmp/joao-sistema-deploy.lock
-            flock 9
-            trap 'rm -f /tmp/joao-sistema-deploy.lock' EXIT
-            git fetch origin main
-            git reset --hard origin/main
-            rm -rf .next
-            npm ci
-            npm run build
-            if command -v pm2 >/dev/null 2>&1; then
-              APP_DIR="${{ secrets.VPS_PATH || vars.VPS_PATH }}" pm2 startOrReload ecosystem.config.cjs --only joao-sistema --update-env
-            else
-              pkill -f "next start" || true
-              nohup npm run start > joao-sistema.log 2>&1 &
-            fi
+      - name: Deployment handled on VPS
+        run: |
+          echo "SSH deploy disabled. VPS pulls main on its own."
