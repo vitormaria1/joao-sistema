@@ -20,12 +20,16 @@ create table if not exists public.programs (
 
 create table if not exists public.student_accounts (
   id uuid primary key default gen_random_uuid(),
-  profile_id uuid not null references public.profiles (id) on delete cascade,
+  profile_id uuid references public.profiles (id) on delete cascade,
   program_id uuid not null references public.programs (id) on delete restrict,
+  student_name text not null,
+  student_email text,
+  contact_whatsapp text,
   status text not null check (status in ('active', 'paused', 'finished')),
   week_number integer not null default 1 check (week_number between 1 and 6),
   started_at date,
   renewal_date date,
+  notes text,
   created_at timestamptz not null default now()
 );
 
@@ -58,7 +62,7 @@ create table if not exists public.lead_activities (
 
 create table if not exists public.tasks (
   id uuid primary key default gen_random_uuid(),
-  created_by uuid not null references public.profiles (id) on delete restrict,
+  created_by uuid references public.profiles (id) on delete restrict,
   assigned_to uuid references public.profiles (id) on delete set null,
   student_account_id uuid references public.student_accounts (id) on delete set null,
   lead_id uuid references public.crm_leads (id) on delete set null,

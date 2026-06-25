@@ -27,10 +27,10 @@ export const checklistSections: ChecklistSection[] = [
     items: [
       { label: "Autenticação real", done: false },
       { label: "Dashboard admin", done: true },
-      { label: "Área do aluno", done: false },
+      { label: "Área do aluno", done: true },
       { label: "CRM comercial", done: true },
-      { label: "Gestão de tarefas", done: false },
-      { label: "Progresso das 6 semanas", done: false },
+      { label: "Gestão de tarefas", done: true },
+      { label: "Progresso das 6 semanas", done: true },
     ],
   },
 ];

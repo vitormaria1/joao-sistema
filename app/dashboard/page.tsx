@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { createLead, createProgram } from "@/app/dashboard/actions";
 import { getCurrentProfile } from "@/lib/auth";
-import { getPrograms, getLeads } from "@/lib/dashboard-data";
+import {
+  getPrograms,
+  getLeads,
+  getStudents,
+  getTasks,
+  getDashboardSummary,
+} from "@/lib/dashboard-data";
 import { getDatabaseHealth } from "@/lib/db";
 import { checklistSections } from "@/lib/project-checklist";
-import { dashboardMetrics, weeklyFlow } from "@/lib/platform-data";
+import { weeklyFlow } from "@/lib/platform-data";
 
 const stageLabels = {
   ativacao: "Ativação",
@@ -18,7 +24,35 @@ const stageLabels = {
 export default async function DashboardPage() {
   const profile = await getCurrentProfile();
   const dbHealth = await getDatabaseHealth().catch(() => null);
-  const [programs, leads] = await Promise.all([getPrograms(), getLeads()]);
+  const [programs, leads, students, tasks, summary] = await Promise.all([
+    getPrograms(),
+    getLeads(),
+    getStudents(),
+    getTasks(),
+    getDashboardSummary(),
+  ]);
+  const dashboardMetrics = [
+    {
+      label: "Alunos ativos",
+      value: String(summary.activeStudents).padStart(2, "0"),
+      detail: "Matrículas em andamento",
+    },
+    {
+      label: "Leads no funil",
+      value: String(summary.leads).padStart(2, "0"),
+      detail: "Cadastros comerciais",
+    },
+    {
+      label: "Tarefas abertas",
+      value: String(summary.openTasks).padStart(2, "0"),
+      detail: "Fila operacional",
+    },
+    {
+      label: "Programas ativos",
+      value: String(summary.activePrograms).padStart(2, "0"),
+      detail: "Candeeiro e Vigília",
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-[var(--color-ink)] text-[var(--color-paper)]">
@@ -41,12 +75,26 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          <Link
-            href="/"
-            className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
-          >
-            Visão geral
-          </Link>
+          <nav className="flex flex-wrap gap-2">
+            <Link
+              href="/"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
+            >
+              Visão geral
+            </Link>
+            <Link
+              href="/alunos"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
+            >
+              Alunos
+            </Link>
+            <Link
+              href="/tarefas"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80 transition hover:border-[var(--color-gold)]/40 hover:text-white"
+            >
+              Tarefas
+            </Link>
+          </nav>
         </header>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -348,6 +396,84 @@ export default async function DashboardPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+          <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+              Alunos
+            </p>
+            <h2 className="mt-2 font-display text-3xl">Matrículas ativas</h2>
+            <div className="mt-6 space-y-3">
+              {students.length === 0 ? (
+                <p className="text-sm text-white/65">Nenhum aluno cadastrado.</p>
+              ) : (
+                students.slice(0, 4).map((student) => {
+                  const progress = Math.min(
+                    100,
+                    Math.round((student.week_number / student.duration_weeks) * 100),
+                  );
+
+                  return (
+                    <div
+                      key={student.id}
+                      className="rounded-[1.25rem] border border-white/10 bg-black/10 px-4 py-4"
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="font-semibold">{student.student_name}</p>
+                          <p className="text-sm text-white/60">
+                            {student.program_name} · semana {student.week_number}/
+                            {student.duration_weeks}
+                          </p>
+                        </div>
+                        <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/75">
+                          {progress}%
+                        </span>
+                      </div>
+                      <div className="mt-4 h-2 rounded-full bg-white/10">
+                        <div
+                          className="h-2 rounded-full bg-[var(--color-gold)]"
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </article>
+
+          <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+              Tarefas
+            </p>
+            <h2 className="mt-2 font-display text-3xl">Fila crítica</h2>
+            <div className="mt-6 space-y-3">
+              {tasks.length === 0 ? (
+                <p className="text-sm text-white/65">Nenhuma tarefa cadastrada.</p>
+              ) : (
+                tasks.slice(0, 4).map((task) => (
+                  <div
+                    key={task.id}
+                    className="rounded-[1.25rem] border border-white/10 bg-black/10 px-4 py-4"
+                  >
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                      <div>
+                        <p className="font-semibold">{task.title}</p>
+                        <p className="text-sm text-white/60">
+                          {task.student_name || task.lead_name || "Sem vínculo"}
+                        </p>
+                      </div>
+                      <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/75">
+                        {task.priority}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </article>
         </section>
       </div>
     </main>

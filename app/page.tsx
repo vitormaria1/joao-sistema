@@ -8,7 +8,7 @@ export default function Home() {
       <div className="absolute inset-x-0 top-0 h-72 bg-[linear-gradient(180deg,rgba(23,24,29,0.9),rgba(23,24,29,0))]" />
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-8 lg:px-10 lg:py-10">
-        <header className="flex items-center justify-between rounded-full border border-white/30 bg-white/50 px-5 py-3 backdrop-blur">
+        <header className="flex flex-col gap-4 rounded-[2rem] border border-white/30 bg-white/50 px-5 py-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-[0.65rem] uppercase tracking-[0.35em] text-[var(--color-teal)]">
               João Pedro
@@ -16,12 +16,26 @@ export default function Home() {
             <p className="font-display text-2xl leading-none">Mileto</p>
           </div>
 
-          <Link
-            href="/login"
-            className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--color-ink)] px-5 text-sm text-[var(--color-paper)] transition hover:bg-black"
-          >
-            Entrar no sistema
-          </Link>
+          <nav className="flex flex-wrap gap-2">
+            <Link
+              href="/dashboard"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--color-ink)] px-5 text-sm text-[var(--color-paper)] transition hover:bg-black"
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/alunos"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--color-ink)]/15 px-5 text-sm transition hover:border-[var(--color-ink)]/35"
+            >
+              Alunos
+            </Link>
+            <Link
+              href="/tarefas"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-[var(--color-ink)]/15 px-5 text-sm transition hover:border-[var(--color-ink)]/35"
+            >
+              Tarefas
+            </Link>
+          </nav>
         </header>
 
         <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
@@ -40,10 +54,10 @@ export default function Home() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/login"
+                href="/dashboard"
                 className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-ink)] transition hover:brightness-105"
               >
-                Fazer login
+                Abrir operação
               </Link>
               <a
                 href="../CHECKLIST.md"

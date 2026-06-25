@@ -2,9 +2,9 @@
 
 ## Bloco 1: Operação
 
-- [ ] Gestão de tarefas com responsáveis, prioridade e prazo
-- [ ] Criação de clientes e matrículas ligadas a programas
-- [ ] Linha do tempo semanal do aluno
+- [x] Gestão de tarefas com responsáveis, prioridade e prazo
+- [x] Criação de clientes e matrículas ligadas a programas
+- [x] Linha do tempo semanal do aluno
 - [ ] Anexos e materiais por etapa
 
 ## Bloco 2: CRM
