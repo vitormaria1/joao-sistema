@@ -1,5 +1,5 @@
 import { SiteShell } from "@/app/_components/site-shell";
-import { MethodTabs } from "@/app/dashboard/_components/method-tabs";
+import { MethodPanel } from "@/app/dashboard/_components/method-panel";
 import { createLead, createProgram } from "@/app/dashboard/actions";
 import { getCurrentProfile } from "@/lib/auth";
 import {
@@ -70,7 +70,7 @@ export default async function DashboardPage() {
         ))}
       </section>
 
-      <MethodTabs />
+      <MethodPanel />
 
       <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
         <article className="rounded-[2rem] border border-white/10 bg-[#f3ede2] p-6 text-[var(--color-ink)]">
