@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 const navItems = [
@@ -21,6 +24,7 @@ export function SiteShell({
   accent?: "light" | "dark";
 }) {
   const dark = accent === "dark";
+  const pathname = usePathname();
 
   return (
     <main
@@ -30,54 +34,79 @@ export function SiteShell({
           : "min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)]"
       }
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-8 lg:px-10">
-        <header
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-4 lg:flex-row lg:px-6 lg:py-6">
+        <aside
           className={
             dark
-              ? "flex flex-col gap-4 rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur sm:flex-row sm:items-end sm:justify-between"
-              : "flex flex-col gap-4 rounded-[2rem] border border-black/8 bg-white p-6 shadow-[0_16px_50px_rgba(0,0,0,0.06)] sm:flex-row sm:items-end sm:justify-between"
+              ? "rounded-[2rem] border border-white/10 bg-white/5 p-5 backdrop-blur lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-[280px]"
+              : "rounded-[2rem] border border-black/8 bg-white p-5 shadow-[0_16px_50px_rgba(0,0,0,0.06)] lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-[280px]"
           }
         >
-          <div>
-            <p
-              className={
-                dark
-                  ? "text-xs uppercase tracking-[0.35em] text-[var(--color-sand)]"
-                  : "text-xs uppercase tracking-[0.35em] text-[var(--color-teal)]"
-              }
-            >
-              Joao Sistema
-            </p>
-            <h1 className="mt-2 font-display text-4xl">{title}</h1>
-            <p
-              className={
-                dark
-                  ? "mt-3 text-sm text-white/68"
-                  : "mt-3 text-sm text-black/60"
-              }
-            >
-              {subtitle}
-            </p>
-          </div>
-
-          <nav className="flex flex-wrap gap-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
+          <div className="flex h-full flex-col">
+            <div>
+              <p
                 className={
                   dark
-                    ? "inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-5 text-sm text-white/80"
-                    : "inline-flex h-11 items-center justify-center rounded-full border border-black/10 px-5 text-sm text-black/75"
+                    ? "text-xs uppercase tracking-[0.35em] text-[var(--color-sand)]"
+                    : "text-xs uppercase tracking-[0.35em] text-[var(--color-teal)]"
                 }
               >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </header>
+                Joao Sistema
+              </p>
+              <h1 className="mt-2 font-display text-3xl">{title}</h1>
+              <p
+                className={
+                  dark
+                    ? "mt-3 text-sm text-white/68"
+                    : "mt-3 text-sm text-black/60"
+                }
+              >
+                {subtitle}
+              </p>
+            </div>
 
-        {children}
+            <nav className="mt-8 grid gap-2">
+              {navItems.map((item) => {
+                const active = pathname === item.href;
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={
+                      dark
+                        ? `flex h-11 items-center justify-between rounded-full px-4 text-sm transition ${
+                            active
+                              ? "bg-[var(--color-gold)] text-[var(--color-ink)]"
+                              : "border border-white/10 text-white/78 hover:bg-white/5"
+                          }`
+                        : `flex h-11 items-center justify-between rounded-full px-4 text-sm transition ${
+                            active
+                              ? "bg-[var(--color-ink)] text-[var(--color-paper)]"
+                              : "border border-black/10 text-black/75 hover:bg-black/5"
+                          }`
+                    }
+                  >
+                    <span>{item.label}</span>
+                    <span className={active ? "opacity-100" : "opacity-35"}>•</span>
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div
+              className={
+                dark
+                  ? "mt-auto rounded-[1.4rem] border border-white/10 bg-black/10 p-4 text-sm text-white/58"
+                  : "mt-auto rounded-[1.4rem] border border-black/8 bg-[var(--color-paper)] p-4 text-sm text-black/52"
+              }
+            >
+              Painel de operação
+            </div>
+          </div>
+        </aside>
+
+        <section className="min-w-0 flex-1 space-y-6">{children}</section>
       </div>
     </main>
   );
