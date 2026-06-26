@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { signOut } from "@/app/bridge/login/actions";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -95,6 +96,8 @@ export function SiteShell({
                   <Link
                     key={item.href}
                     href={item.href}
+                    target={item.href === "/crm" ? "_blank" : undefined}
+                    rel={item.href === "/crm" ? "noreferrer" : undefined}
                     className={
                       active
                         ? `${baseClasses} ${neutralClasses} font-medium ring-1 ring-current/10`
@@ -109,15 +112,19 @@ export function SiteShell({
               })}
             </nav>
 
-            <div
-              className={
-                dark
-                  ? "mt-auto rounded-[1.4rem] border border-white/10 bg-black/10 p-4 text-sm text-white/58"
-                  : "mt-auto rounded-[1.4rem] border border-black/8 bg-[var(--color-paper)] p-4 text-sm text-black/52"
-              }
-            >
-              Painel de operação
-            </div>
+            <form action={signOut} className="mt-auto">
+              <button
+                type="submit"
+                className={
+                  dark
+                    ? "flex w-full items-center justify-between rounded-[1.4rem] border border-white/10 bg-black/10 p-4 text-sm text-white/70 transition hover:bg-white/8"
+                    : "flex w-full items-center justify-between rounded-[1.4rem] border border-black/8 bg-[var(--color-paper)] p-4 text-sm text-black/65 transition hover:bg-black/5"
+                }
+              >
+                <span>Sair</span>
+                <span aria-hidden="true">↩</span>
+              </button>
+            </form>
           </div>
         </aside>
 
