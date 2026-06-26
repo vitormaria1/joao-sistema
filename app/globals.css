@@ -10,6 +10,8 @@
   --color-teal-soft: #347d89;
   --color-gold: #c6a15b;
   --color-sand: #d8c7a5;
+  --font-body: "Segoe UI", system-ui, sans-serif;
+  --font-display: "Georgia", "Times New Roman", serif;
 }
 
 @theme inline {
