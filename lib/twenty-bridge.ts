@@ -68,14 +68,14 @@ function getTwentyBaseUrl() {
   return baseUrl.replace(/\/$/, "");
 }
 
-function getTwentyGraphqlUrl() {
-  const graphqlUrl = process.env.TWENTY_GRAPHQL_URL;
+function getTwentyAuthUrl() {
+  const authUrl = process.env.TWENTY_METADATA_URL;
 
-  if (graphqlUrl) {
-    return graphqlUrl.replace(/\/$/, "");
+  if (authUrl) {
+    return authUrl.replace(/\/$/, "");
   }
 
-  return `${getTwentyBaseUrl()}/graphql`;
+  return `${getTwentyBaseUrl()}/metadata`;
 }
 
 function getBridgeSecret() {
@@ -100,7 +100,7 @@ async function executeTwentyGraphQL<TData>(
   query: string,
   variables: Record<string, unknown>,
 ): Promise<TData> {
-  const response = await fetch(getTwentyGraphqlUrl(), {
+  const response = await fetch(getTwentyAuthUrl(), {
     method: "POST",
     headers: {
       "content-type": "application/json",

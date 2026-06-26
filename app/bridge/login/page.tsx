@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { sendMagicLink, signInWithPassword } from "@/app/bridge/login/actions";
+import { signInWithPassword } from "@/app/bridge/login/actions";
 import { getAuthenticatedUser } from "@/lib/auth";
 import { normalizeInternalPath } from "@/lib/paths";
 
@@ -33,8 +33,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               Clareza operacional para mentoria, vendas e progresso dos clientes.
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/72">
-              Entre por link mágico no e-mail. O primeiro acesso já cria o seu
-              perfil automaticamente.
+              Acesse com e-mail e senha para entrar no painel operacional.
             </p>
           </div>
 
@@ -60,22 +59,12 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               Acesso
             </p>
             <h2 className="mt-2 font-display text-4xl leading-none">
-              Entrar por e-mail
+              Entrar no sistema
             </h2>
           </div>
 
-          <form action={sendMagicLink} className="space-y-4">
+          <form action={signInWithPassword} className="space-y-4">
             <input type="hidden" name="next" value={nextPath} />
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium">Nome</span>
-              <input
-                type="text"
-                name="fullName"
-                placeholder="Seu nome"
-                className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
-              />
-            </label>
-
             <label className="block">
               <span className="mb-2 block text-sm font-medium">E-mail</span>
               <input
@@ -87,55 +76,25 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               />
             </label>
 
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium">Senha</span>
+              <input
+                type="password"
+                name="password"
+                required
+                autoComplete="current-password"
+                placeholder="Sua senha"
+                className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
+              />
+            </label>
+
             <button
               type="submit"
               className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[var(--color-ink)] px-6 text-sm font-semibold text-[var(--color-paper)] transition hover:bg-black"
             >
-              Enviar link de acesso
+              Entrar
             </button>
           </form>
-
-          <div className="my-6 border-t border-black/10 pt-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
-              Acesso de teste
-            </p>
-            <p className="mt-2 text-sm leading-6 text-black/60">
-              Use este login para validar a navegação sem depender de e-mail.
-            </p>
-
-            <form action={signInWithPassword} className="mt-4 space-y-4">
-              <input type="hidden" name="next" value={nextPath} />
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium">E-mail</span>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  defaultValue="teste.nav@varinteligencia.com"
-                  className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
-                />
-              </label>
-
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium">Senha</span>
-                <input
-                  type="password"
-                  name="password"
-                  required
-                  autoComplete="current-password"
-                  placeholder="Senha de teste"
-                  className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
-                />
-              </label>
-
-              <button
-                type="submit"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full border border-[var(--color-ink)] bg-transparent px-6 text-sm font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)]"
-              >
-                Entrar com o login de teste
-              </button>
-            </form>
-          </div>
 
           {params.error ? (
             <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-800">
