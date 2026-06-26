@@ -70,10 +70,10 @@ export default async function TarefasPage() {
         {taskMetrics.map((metric) => (
           <article
             key={metric.label}
-            className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] p-5"
+            className="rounded-md border border-[#c4b27b]/24 bg-[#0f5d73] p-5"
           >
-            <p className="text-sm text-white/60">{metric.label}</p>
-            <p className="mt-4 font-display text-5xl text-[var(--color-gold)]">
+            <p className="text-sm text-[#efe2b3]/72">{metric.label}</p>
+            <p className="mt-4 font-display text-5xl text-[#cfbc79]">
               {String(metric.value).padStart(2, "0")}
             </p>
           </article>
@@ -81,13 +81,13 @@ export default async function TarefasPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
-        <article className="rounded-[2rem] border border-white/10 bg-[#f3ede2] p-6 text-[var(--color-ink)]">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
+        <article className="rounded-md border border-[#cfbc79]/35 bg-[#cfbc79] p-6 text-[#153d4c]">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#045973]">
             Nova tarefa
           </p>
           <h2 className="mt-2 font-display text-3xl">Entrada rápida</h2>
 
-          <details className="mt-6 rounded-[1.5rem] border border-black/8 bg-white px-4 py-4">
+          <details className="mt-6 rounded-md border border-[#b89e5a]/26 bg-[#efe2b3] px-4 py-4">
             <summary className="cursor-pointer list-none text-sm font-medium text-[var(--color-ink)]">
               Abrir formulário
             </summary>
@@ -96,12 +96,12 @@ export default async function TarefasPage() {
               <input
                 name="title"
                 placeholder="Título"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
                 required
               />
               <select
                 name="area"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
                 defaultValue="gestao"
               >
                 {Object.entries(areaLabels).map(([value, label]) => (
@@ -112,7 +112,7 @@ export default async function TarefasPage() {
               </select>
               <select
                 name="priority"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
                 defaultValue="media"
               >
                 {Object.entries(priorityLabels).map(([value, label]) => (
@@ -123,7 +123,7 @@ export default async function TarefasPage() {
               </select>
               <select
                 name="status"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
                 defaultValue="todo"
               >
                 {Object.entries(statusLabels).map(([value, label]) => (
@@ -134,7 +134,7 @@ export default async function TarefasPage() {
               </select>
               <select
                 name="studentAccountId"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
                 defaultValue=""
               >
                 <option value="">Sem aluno</option>
@@ -146,7 +146,7 @@ export default async function TarefasPage() {
               </select>
               <select
                 name="leadId"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
                 defaultValue=""
               >
                 <option value="">Sem lead</option>
@@ -159,20 +159,20 @@ export default async function TarefasPage() {
               <input
                 name="dueAt"
                 type="datetime-local"
-                className="h-12 rounded-2xl border border-black/10 bg-white px-4"
+                className="h-12 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4"
               />
-              <label className="col-span-full flex items-center gap-3 rounded-2xl bg-white px-4 py-3 text-sm">
+              <label className="col-span-full flex items-center gap-3 rounded-md bg-[#f7edc5] px-4 py-3 text-sm">
                 <input type="checkbox" name="isRecurring" />
                 Recorrente
               </label>
               <textarea
                 name="description"
                 placeholder="Descrição"
-                className="min-h-28 rounded-2xl border border-black/10 bg-white px-4 py-3 md:col-span-2"
+                className="min-h-28 rounded-md border border-[#b89e5a]/26 bg-[#f7edc5] px-4 py-3 md:col-span-2"
               />
               <button
                 type="submit"
-                className="md:col-span-2 inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-ink)] px-6 text-sm font-semibold text-[var(--color-paper)]"
+                className="md:col-span-2 inline-flex h-12 items-center justify-center rounded-sm bg-[#045973] px-6 text-sm font-semibold text-[#efe2b3]"
               >
                 Salvar tarefa
               </button>
@@ -180,29 +180,29 @@ export default async function TarefasPage() {
           </details>
         </article>
 
-        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+        <article className="rounded-md border border-[#c4b27b]/24 bg-[#0f5d73] p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#cfbc79]">
             Fluxo
           </p>
-          <h2 className="mt-2 font-display text-3xl">Kanban atual</h2>
+          <h2 className="mt-2 font-display text-3xl text-[#f0e2b0]">Kanban atual</h2>
           <div className="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
             {(
               Object.entries(groupedTasks) as [keyof typeof groupedTasks, (typeof tasks)[number][]][]
             ).map(([status, items]) => (
               <div
                 key={status}
-                className="rounded-[1.5rem] border border-white/10 bg-black/10 p-4"
+                className="rounded-md border border-white/10 bg-black/12 p-4"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold">{statusLabels[status]}</h3>
-                  <span className="rounded-full bg-white/10 px-2 py-1 text-xs text-white/75">
+                  <h3 className="font-semibold text-[#f6ebc5]">{statusLabels[status]}</h3>
+                  <span className="rounded-sm bg-white/10 px-2 py-1 text-xs text-[#efe2b3]/80">
                     {items.length}
                   </span>
                 </div>
 
                 <div className="mt-3 space-y-3">
                   {items.length === 0 ? (
-                    <p className="text-sm text-white/55">Sem tarefas.</p>
+                    <p className="text-sm text-[#efe2b3]/60">Sem tarefas.</p>
                   ) : (
                     items.map((task) => {
                       const taskAttachments = attachmentsByTask
@@ -212,13 +212,13 @@ export default async function TarefasPage() {
                       return (
                         <article
                           key={task.id}
-                          className="rounded-[1.25rem] border border-white/10 bg-white/5 p-3"
+                          className="rounded-md border border-white/10 bg-white/5 p-3"
                         >
-                          <p className="font-medium">{task.title}</p>
-                          <p className="text-xs text-white/55">
+                          <p className="font-medium text-[#f6ebc5]">{task.title}</p>
+                          <p className="text-xs text-[#efe2b3]/60">
                             {areaLabels[task.area]} · {priorityLabels[task.priority]}
                           </p>
-                          <p className="mt-2 text-sm text-white/65">
+                          <p className="mt-2 text-sm text-[#f6ebc5]/75">
                             {task.student_name || task.lead_name || "Sem vínculo"}
                           </p>
 
@@ -229,15 +229,15 @@ export default async function TarefasPage() {
                                 href={item.file_url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="block rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/75"
+                                className="block rounded-sm border border-white/10 bg-white/5 px-3 py-2 text-xs text-[#f6ebc5]/78"
                               >
                                 {item.title} · {item.kind}
                               </a>
                             ))}
                           </div>
 
-                          <details className="mt-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2">
-                            <summary className="cursor-pointer list-none text-xs text-white/75">
+                          <details className="mt-3 rounded-sm border border-white/10 bg-white/5 px-3 py-2">
+                            <summary className="cursor-pointer list-none text-xs text-[#f6ebc5]/78">
                               Mover / anexar
                             </summary>
 
@@ -246,7 +246,7 @@ export default async function TarefasPage() {
                               <select
                                 name="status"
                                 defaultValue={task.status}
-                                className="h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                                className="h-10 w-full rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                               >
                                 {Object.entries(statusLabels).map(([value, label]) => (
                                   <option key={value} value={value} className="text-black">
@@ -256,7 +256,7 @@ export default async function TarefasPage() {
                               </select>
                               <button
                                 type="submit"
-                                className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-full bg-white/10 text-xs text-white"
+                                className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-sm bg-white/10 text-xs text-white"
                               >
                                 Atualizar
                               </button>
@@ -268,17 +268,17 @@ export default async function TarefasPage() {
                               <input
                                 name="title"
                                 placeholder="Título do material"
-                                className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                                className="h-10 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                               />
                               <input
                                 name="fileUrl"
                                 placeholder="URL do arquivo"
-                                className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                                className="h-10 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                               />
                               <select
                                 name="kind"
                                 defaultValue="attachment"
-                                className="h-10 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                                className="h-10 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                               >
                                 <option value="attachment" className="text-black">
                                   Anexo
@@ -289,7 +289,7 @@ export default async function TarefasPage() {
                               </select>
                               <button
                                 type="submit"
-                                className="inline-flex h-10 items-center justify-center rounded-full bg-white/10 text-xs text-white"
+                                className="inline-flex h-10 items-center justify-center rounded-sm bg-white/10 text-xs text-white"
                               >
                                 Adicionar
                               </button>

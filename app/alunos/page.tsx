@@ -64,10 +64,10 @@ export default async function AlunosPage() {
         {studentMetrics.map((metric) => (
           <article
             key={metric.label}
-            className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5 shadow-[0_12px_40px_rgba(0,0,0,0.18)]"
+            className="rounded-md border border-[#c4b27b]/24 bg-[#0f5d73] p-5 shadow-[0_12px_40px_rgba(0,0,0,0.18)]"
           >
-            <p className="text-sm text-white/60">{metric.label}</p>
-            <p className="mt-4 font-display text-5xl text-[var(--color-gold)]">
+            <p className="text-sm text-[#efe2b3]/72">{metric.label}</p>
+            <p className="mt-4 font-display text-5xl text-[#cfbc79]">
               {String(metric.value).padStart(2, "0")}
             </p>
           </article>
@@ -75,16 +75,16 @@ export default async function AlunosPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
-        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+        <article className="rounded-md border border-[#c4b27b]/24 bg-[#0f5d73] p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#cfbc79]">
             Nova matrícula
           </p>
-          <h2 className="mt-2 font-display text-3xl text-[var(--color-paper)]">
+          <h2 className="mt-2 font-display text-3xl text-[#f0e2b0]">
             Cadastro rápido
           </h2>
 
-          <details className="mt-6 rounded-[1.5rem] border border-white/10 bg-black/10 px-4 py-4">
-            <summary className="cursor-pointer list-none text-sm font-medium text-[var(--color-paper)] outline-none">
+          <details className="mt-6 rounded-md border border-white/10 bg-black/12 px-4 py-4">
+            <summary className="cursor-pointer list-none text-sm font-medium text-[#f6ebc5] outline-none">
               Abrir formulário
             </summary>
 
@@ -95,22 +95,22 @@ export default async function AlunosPage() {
               <input
                 name="studentName"
                 placeholder="Nome do aluno"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white placeholder:text-white/35"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white placeholder:text-white/35"
                 required
               />
               <input
                 name="studentEmail"
                 placeholder="E-mail"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white placeholder:text-white/35"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white placeholder:text-white/35"
               />
               <input
                 name="contactWhatsapp"
                 placeholder="WhatsApp"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white placeholder:text-white/35"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white placeholder:text-white/35"
               />
               <select
                 name="programId"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white"
                 defaultValue=""
                 required
               >
@@ -125,7 +125,7 @@ export default async function AlunosPage() {
               </select>
               <select
                 name="status"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white"
                 defaultValue="active"
               >
                 <option value="active" className="text-black">Ativo</option>
@@ -138,26 +138,26 @@ export default async function AlunosPage() {
                 min="1"
                 max="6"
                 defaultValue="1"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white"
               />
               <input
                 name="startedAt"
                 type="date"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white"
               />
               <input
                 name="renewalDate"
                 type="date"
-                className="h-12 rounded-2xl border border-white/10 bg-white/5 px-4 text-white"
+                className="h-12 rounded-md border border-white/10 bg-white/5 px-4 text-white"
               />
               <textarea
                 name="notes"
                 placeholder="Notas"
-                className="min-h-28 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/35 md:col-span-2"
+                className="min-h-28 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/35 md:col-span-2"
               />
               <button
                 type="submit"
-                className="md:col-span-2 inline-flex h-12 items-center justify-center rounded-full bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-ink)]"
+                className="md:col-span-2 inline-flex h-12 items-center justify-center rounded-sm bg-[#cfbc79] px-6 text-sm font-semibold text-[#153d4c]"
               >
                 Salvar aluno
               </button>
@@ -165,17 +165,17 @@ export default async function AlunosPage() {
           </details>
         </article>
 
-        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+        <article className="rounded-md border border-[#c4b27b]/24 bg-[#0f5d73] p-6 shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#cfbc79]">
             Carteira
           </p>
-          <h2 className="mt-2 font-display text-3xl text-[var(--color-paper)]">
+          <h2 className="mt-2 font-display text-3xl text-[#f0e2b0]">
             Acompanhamento por aluno
           </h2>
 
           <div className="mt-6 space-y-4">
             {students.length === 0 ? (
-              <p className="text-sm text-white/60">Nenhum aluno cadastrado.</p>
+              <p className="text-sm text-[#efe2b3]/72">Nenhum aluno cadastrado.</p>
             ) : (
               students.map((student) => {
                 const progress = Math.min(
@@ -195,7 +195,7 @@ export default async function AlunosPage() {
                 return (
                   <article
                     key={student.id}
-                    className="rounded-[1.75rem] border border-white/10 bg-black/10 p-5"
+                    className="rounded-md border border-white/10 bg-black/12 p-5"
                   >
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                       <div>
@@ -203,7 +203,7 @@ export default async function AlunosPage() {
                           <p className="font-semibold text-lg text-white">
                             {student.student_name}
                           </p>
-                          <span className="rounded-full bg-[var(--color-gold)]/15 px-3 py-1 text-xs text-[var(--color-gold)]">
+                          <span className="rounded-sm bg-[#cfbc79]/15 px-3 py-1 text-xs text-[#f0e2b0]">
                             {student.status}
                           </span>
                         </div>
@@ -212,7 +212,7 @@ export default async function AlunosPage() {
                         </p>
                       </div>
 
-                      <div className="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-right">
+                      <div className="rounded-md border border-white/10 bg-white/5 px-3 py-2 text-right">
                         <p className="text-[11px] uppercase tracking-[0.25em] text-white/45">
                           Progresso
                         </p>
@@ -222,37 +222,37 @@ export default async function AlunosPage() {
                       </div>
                     </div>
 
-                    <div className="mt-4 h-2 rounded-full bg-white/10">
+                    <div className="mt-4 h-2 rounded-sm bg-white/10">
                       <div
-                        className="h-2 rounded-full bg-[var(--color-gold)]"
+                        className="h-2 rounded-sm bg-[#cfbc79]"
                         style={{ width: `${progress}%` }}
                       />
                     </div>
 
                     <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/55">
-                      <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                      <span className="rounded-sm border border-white/10 bg-white/5 px-2 py-1">
                         Semana {student.week_number}/{student.duration_weeks}
                       </span>
-                      <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                      <span className="rounded-sm border border-white/10 bg-white/5 px-2 py-1">
                         Fase {phase}
                       </span>
-                      <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                      <span className="rounded-sm border border-white/10 bg-white/5 px-2 py-1">
                         Restam {remainingWeeks} semanas
                       </span>
                       {student.contact_whatsapp ? (
-                        <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                        <span className="rounded-sm border border-white/10 bg-white/5 px-2 py-1">
                           {student.contact_whatsapp}
                         </span>
                       ) : null}
                       {student.renewal_date ? (
-                        <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+                        <span className="rounded-sm border border-white/10 bg-white/5 px-2 py-1">
                           Renovação {student.renewal_date}
                         </span>
                       ) : null}
                     </div>
 
                     <div className="mt-5 grid gap-3 md:grid-cols-3">
-                      <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="rounded-md border border-white/10 bg-white/5 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.2em] text-white/45">
                           Materiais
                         </p>
@@ -260,7 +260,7 @@ export default async function AlunosPage() {
                           {studentAttachments.length}
                         </p>
                       </div>
-                      <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="rounded-md border border-white/10 bg-white/5 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.2em] text-white/45">
                           Tarefas
                         </p>
@@ -268,7 +268,7 @@ export default async function AlunosPage() {
                           {studentTasks.length}
                         </p>
                       </div>
-                      <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="rounded-md border border-white/10 bg-white/5 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.2em] text-white/45">
                           Início
                         </p>
@@ -279,17 +279,17 @@ export default async function AlunosPage() {
                     </div>
 
                     {student.notes ? (
-                      <p className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/72">
+                      <p className="mt-4 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/72">
                         {student.notes}
                       </p>
                     ) : (
-                      <p className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/45">
+                      <p className="mt-4 rounded-md border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/45">
                         Sem observações registradas.
                       </p>
                     )}
 
                     <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                      <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="rounded-md border border-white/10 bg-white/5 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.2em] text-white/45">
                           Materiais recentes
                         </p>
@@ -305,7 +305,7 @@ export default async function AlunosPage() {
                                 href={item.file_url}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="block rounded-xl border border-white/10 bg-black/10 px-3 py-2 text-sm text-white/80"
+                                className="block rounded-sm border border-white/10 bg-black/10 px-3 py-2 text-sm text-white/80"
                               >
                                 {item.title} · {item.kind}
                               </a>
@@ -314,7 +314,7 @@ export default async function AlunosPage() {
                         </div>
                       </div>
 
-                      <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="rounded-md border border-white/10 bg-white/5 px-4 py-3">
                         <p className="text-xs uppercase tracking-[0.2em] text-white/45">
                           Tarefas vinculadas
                         </p>
@@ -327,7 +327,7 @@ export default async function AlunosPage() {
                             studentTasks.map((task) => (
                               <article
                                 key={task.id}
-                                className="rounded-xl border border-white/10 bg-black/10 px-3 py-2"
+                                className="rounded-sm border border-white/10 bg-black/10 px-3 py-2"
                               >
                                 <div className="flex items-start justify-between gap-3">
                                   <div>
@@ -338,7 +338,7 @@ export default async function AlunosPage() {
                                       {task.area} · {task.priority}
                                     </p>
                                   </div>
-                                  <span className="rounded-full bg-[var(--color-gold)]/15 px-2 py-1 text-[10px] text-[var(--color-gold)]">
+                                  <span className="rounded-sm bg-[#cfbc79]/15 px-2 py-1 text-[10px] text-[#f0e2b0]">
                                     {task.status}
                                   </span>
                                 </div>
@@ -350,7 +350,7 @@ export default async function AlunosPage() {
                     </div>
 
                     <div className="mt-4 grid gap-3 md:grid-cols-2">
-                      <details className="rounded-[1.25rem] border border-white/10 bg-black/10 px-4 py-3">
+                      <details className="rounded-md border border-white/10 bg-black/10 px-4 py-3">
                         <summary className="cursor-pointer list-none text-sm font-medium text-white outline-none">
                           Atualizar progresso
                         </summary>
@@ -367,7 +367,7 @@ export default async function AlunosPage() {
                           <select
                             name="status"
                             defaultValue={student.status}
-                            className="h-11 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                            className="h-11 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                           >
                             <option value="active" className="text-black">
                               Ativo
@@ -385,23 +385,23 @@ export default async function AlunosPage() {
                             min="1"
                             max="6"
                             defaultValue={student.week_number}
-                            className="h-11 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                            className="h-11 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                           />
                           <input
                             name="notes"
                             placeholder="Nova nota"
-                            className="h-11 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35"
+                            className="h-11 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35"
                           />
                           <button
                             type="submit"
-                            className="md:col-span-3 inline-flex h-11 items-center justify-center rounded-full bg-[var(--color-gold)] px-5 text-sm text-[var(--color-ink)]"
+                            className="md:col-span-3 inline-flex h-11 items-center justify-center rounded-sm bg-[#cfbc79] px-5 text-sm text-[#153d4c]"
                           >
                             Atualizar progresso
                           </button>
                         </form>
                       </details>
 
-                      <details className="rounded-[1.25rem] border border-white/10 bg-black/10 px-4 py-3">
+                      <details className="rounded-md border border-white/10 bg-black/10 px-4 py-3">
                         <summary className="cursor-pointer list-none text-sm font-medium text-white outline-none">
                           Adicionar material
                         </summary>
@@ -415,17 +415,17 @@ export default async function AlunosPage() {
                           <input
                             name="title"
                             placeholder="Título do material"
-                            className="h-11 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35"
+                            className="h-11 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35"
                           />
                           <input
                             name="fileUrl"
                             placeholder="URL do arquivo"
-                            className="h-11 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35"
+                            className="h-11 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white placeholder:text-white/35"
                           />
                           <select
                             name="kind"
                             defaultValue="material"
-                            className="h-11 rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white"
+                            className="h-11 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
                           >
                             <option value="material" className="text-black">
                               Material
@@ -436,7 +436,7 @@ export default async function AlunosPage() {
                           </select>
                           <button
                             type="submit"
-                            className="inline-flex h-11 items-center justify-center rounded-full border border-white/10 px-4 text-sm text-white"
+                            className="inline-flex h-11 items-center justify-center rounded-sm border border-white/10 px-4 text-sm text-white"
                           >
                             Adicionar
                           </button>
