@@ -16,12 +16,11 @@ const navItems = [
 
 export function SiteShell({
   title,
-  subtitle,
   children,
   accent = "light",
 }: {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   children: ReactNode;
   accent?: "light" | "dark";
 }) {
@@ -45,43 +44,8 @@ export function SiteShell({
         >
           <div className="flex h-full flex-col">
             <div className={dark ? "border-b border-[#cfbc79]/22 px-5 py-5" : "px-5 py-5"}>
-              <p
-                className={
-                  dark
-                    ? "text-xs uppercase tracking-[0.35em] text-[#cfbc79]"
-                    : "text-xs uppercase tracking-[0.35em] text-[var(--color-teal)]"
-                }
-              >
-                Joao Sistema
-              </p>
-              <h1 className="mt-2 font-display text-3xl">{title}</h1>
-              <p
-                className={
-                  dark
-                    ? "mt-3 text-sm text-[#efe2b3]/78"
-                    : "mt-3 text-sm text-black/60"
-                }
-              >
-                {subtitle}
-              </p>
+              <h1 className="font-display text-3xl">{title}</h1>
             </div>
-
-            {pathname === "/dashboard" || pathname === "/metodo" ? (
-              <div
-                className={
-                  dark
-                    ? "mx-5 mt-5 rounded-sm border border-[#cfbc79]/24 bg-[#cfbc79]/10 px-4 py-3"
-                    : "mt-6 rounded-[1.4rem] border border-[var(--color-teal)]/20 bg-[var(--color-teal)]/8 px-4 py-3"
-                }
-              >
-                <p className="text-[11px] uppercase tracking-[0.28em] text-current/60">
-                  Aba ativa
-                </p>
-                <p className="mt-1 text-lg font-semibold">
-                  {pathname === "/metodo" ? "Método" : "Dashboard"}
-                </p>
-              </div>
-            ) : null}
 
             <nav className="mt-5 grid gap-2 px-5">
               {navItems.map((item) => {

@@ -83,7 +83,6 @@ export default async function DashboardPage() {
   return (
     <SiteShell
       title="Painel"
-      subtitle={`${profile.full_name} · números, gráficos e tarefas do dia.`}
       accent="dark"
     >
       <section className="overflow-hidden rounded-lg border border-[#c8b476]/35 bg-[#cfbc79] text-[#153d4c]">
@@ -92,19 +91,6 @@ export default async function DashboardPage() {
           style={{ backgroundImage: "url('/dashboard-bg.png')" }}
         >
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,21,28,0.12),rgba(10,21,28,0.52))]" />
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between bg-[#045973]/94 px-6 py-3 text-[#caa95d]">
-            <div className="text-xs font-semibold uppercase tracking-[0.18em]">
-              Creative
-              <br />
-              Copywriter
-            </div>
-            <img src="/login-art.png" alt="" className="h-12 w-12 object-contain opacity-90" />
-            <div className="text-right text-xs font-semibold uppercase tracking-[0.18em]">
-              Joao
-              <br />
-              Pedro
-            </div>
-          </div>
         </div>
 
         <div className="grid gap-4 px-4 py-4 lg:grid-cols-3">
