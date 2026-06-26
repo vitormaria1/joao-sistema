@@ -21,13 +21,16 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[#1b232d] text-[var(--color-paper)]">
-      <div className="mx-auto flex min-h-screen w-full max-w-3xl items-center justify-center px-6 py-10">
+    <main
+      className="min-h-screen bg-[#1b232d] bg-center bg-cover bg-no-repeat text-[var(--color-paper)]"
+      style={{ backgroundImage: "url('/login-art.png')" }}
+    >
+      <div className="mx-auto flex min-h-screen w-full max-w-3xl items-center justify-center bg-[#1b232d]/56 px-6 py-10">
         <section className="w-full max-w-md">
           <img
             src="/login-art.png"
             alt=""
-            className="mx-auto mb-10 w-full max-w-[320px]"
+            className="mx-auto mb-8 w-full max-w-[280px]"
           />
 
           <h1 className="text-center font-display text-3xl leading-tight text-[#efe8c9] sm:text-4xl">
@@ -43,7 +46,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               name="email"
               required
               placeholder="E-mail"
-              className="h-12 w-full border-b border-[#efe8c9]/32 bg-transparent px-0 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
+              className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
             />
 
             <input
@@ -52,7 +55,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               required
               autoComplete="current-password"
               placeholder="Senha"
-              className="h-12 w-full border-b border-[#efe8c9]/32 bg-transparent px-0 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
+              className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
             />
 
             <button
