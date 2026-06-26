@@ -1,5 +1,5 @@
 import { SiteShell } from "@/app/_components/site-shell";
-import { getCurrentProfile } from "@/lib/auth";
+import { requireProfile } from "@/lib/auth";
 import { getDashboardSummary, getLeads, getTasks } from "@/lib/dashboard-data";
 
 const stageLabels = {
@@ -34,7 +34,7 @@ function formatBar(value: number, max: number) {
 }
 
 export default async function DashboardPage() {
-  const profile = await getCurrentProfile();
+  const profile = await requireProfile("/dashboard");
   const [summary, leads, tasks] = await Promise.all([
     getDashboardSummary(),
     getLeads(),

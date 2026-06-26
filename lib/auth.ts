@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { redirect } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 import { sql } from "@/lib/db";
 import { createClient } from "@/lib/supabase/server";
@@ -33,6 +34,16 @@ export async function requireUser() {
   const user = await getAuthenticatedUser();
 
   return user;
+}
+
+export async function requireProfile(nextPath = "/dashboard") {
+  const user = await requireUser();
+
+  if (!user) {
+    redirect(`/login?next=${encodeURIComponent(nextPath)}`);
+  }
+
+  return ensureProfile(user);
 }
 
 export async function ensureProfile(user: User) {
