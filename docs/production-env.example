@@ -1,0 +1,18 @@
+# Database
+DATABASE_URL=postgresql://postgres.ofpbgwfdnybjntbejtcb:<password>@aws-1-us-east-1.pooler.supabase.com:5432/postgres
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://ofpbgwfdnybjntbejtcb.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_hFVPZl81kgNYBeOXhuHPHg_Ln1ywhii
+
+# CRM / Twenty
+NEXT_PUBLIC_TWENTY_URL=https://crm.varinteligencia.com
+TWENTY_FRONTEND_URL=https://crm.varinteligencia.com
+TWENTY_GRAPHQL_URL=https://crm.varinteligencia.com/graphql
+
+# Generate with: openssl rand -hex 32
+TWENTY_BRIDGE_SECRET=<generate-a-new-secret>
+
+# Deployment
+APP_DIR=/var/www/joao-sistema
+PORT=3000

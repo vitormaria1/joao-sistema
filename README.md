@@ -54,3 +54,18 @@ Server requirements:
 - `npm` available
 - `pm2` recommended for process restarts
 - SSH password login enabled for the deployment user
+
+Environment variables:
+
+- `DATABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `NEXT_PUBLIC_TWENTY_URL` or `TWENTY_FRONTEND_URL`
+- `TWENTY_GRAPHQL_URL` if the GraphQL endpoint is not `${TWENTY_FRONTEND_URL}/graphql`
+- `TWENTY_BRIDGE_SECRET`
+- `APP_DIR` if the app directory differs from `/var/www/joao-sistema`
+- `PORT` if the process should listen on a different port
+
+Production template:
+
+- [docs/production-env.example](/var/www/joao-sistema/docs/production-env.example)
