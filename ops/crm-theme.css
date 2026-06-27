@@ -1,0 +1,67 @@
+.light {
+  --t-buttons-secondary-text-color: #045973;
+  --t-accent-primary: #d8c588;
+  --t-accent-secondary: #cfbc79;
+  --t-accent-tertiary: #efe2b3;
+  --t-accent-quaternary: #f7edc5;
+  --t-accent-accent3570: #347d89;
+  --t-accent-accent4060: #2b7280;
+  --t-accent-accent1: #fcf7e8;
+  --t-accent-accent2: #f7edc5;
+  --t-accent-accent3: #efe2b3;
+  --t-accent-accent4: #e1d09a;
+  --t-accent-accent5: #d8c588;
+  --t-accent-accent6: #cfbc79;
+  --t-accent-accent7: #b69d62;
+  --t-accent-accent8: #9b8452;
+  --t-accent-accent9: #045973;
+  --t-accent-accent10: #03485e;
+  --t-accent-accent11: #033b4f;
+  --t-accent-accent12: #153d4c;
+  --t-background-primary: #f4eee3;
+  --t-background-secondary: #efe2b3;
+  --t-background-tertiary: #e9decb;
+  --t-background-quaternary: #dccca8;
+  --t-background-danger: #f3d7d2;
+  --t-background-transparent-primary: rgba(21, 61, 76, 0.14);
+  --t-background-transparent-secondary: rgba(21, 61, 76, 0.1);
+  --t-background-transparent-strong: rgba(4, 89, 115, 0.26);
+  --t-background-transparent-medium: rgba(4, 89, 115, 0.14);
+  --t-background-transparent-light: rgba(4, 89, 115, 0.08);
+  --t-background-transparent-lighter: rgba(4, 89, 115, 0.04);
+  --t-background-transparent-blue: rgba(4, 89, 115, 0.12);
+  --t-background-transparent-orange: rgba(198, 161, 91, 0.22);
+  --t-background-transparent-success: rgba(52, 125, 137, 0.16);
+  --t-border-color-strong: #c8b476;
+  --t-border-color-medium: #d8c7a5;
+  --t-border-color-light: #e9decb;
+  --t-border-color-blue: #347d89;
+  --t-box-shadow-color: rgba(21, 61, 76, 0.08);
+  --t-font-color-primary: #153d4c;
+  --t-font-color-secondary: rgba(21, 61, 76, 0.78);
+  --t-font-color-tertiary: rgba(21, 61, 76, 0.62);
+  --t-font-color-light: rgba(21, 61, 76, 0.48);
+  --t-font-color-extra-light: rgba(21, 61, 76, 0.34);
+  --t-font-color-danger: #a33d32;
+  --t-snack-bar-success-color: #045973;
+  --t-snack-bar-success-background-color: rgba(52, 125, 137, 0.16);
+  --t-snack-bar-info-color: #045973;
+  --t-snack-bar-info-background-color: rgba(4, 89, 115, 0.12);
+  --t-snack-bar-warning-color: #8f6d2f;
+  --t-snack-bar-warning-background-color: rgba(198, 161, 91, 0.22);
+  --t-snack-bar-default-color: #153d4c;
+  --t-snack-bar-default-background-color: rgba(21, 61, 76, 0.08);
+  --t-tag-text-turquoise: #045973;
+  --t-tag-text-blue: #045973;
+  --t-tag-text-gold: #8f6d2f;
+  --t-tag-background-turquoise: rgba(4, 89, 115, 0.12);
+  --t-tag-background-blue: rgba(4, 89, 115, 0.12);
+  --t-tag-background-gold: rgba(198, 161, 91, 0.2);
+  --t--illustration-icon-color-blue: #347d89;
+  --t--illustration-icon-fill-blue: #d8c588;
+}
+
+body {
+  background: #f4eee3;
+  color: #153d4c;
+}
