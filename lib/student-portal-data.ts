@@ -55,7 +55,9 @@ function getMethodPhase(weekNumber: number, durationWeeks: number) {
   return "Consolidação";
 }
 
-async function getStudentAccountByProfileId(profileId: string) {
+async function getStudentAccountByProfileId(
+  profileId: string,
+): Promise<StudentPortalAccount | null> {
   const rows = await sql<StudentPortalAccount[]>`
     select
       s.id,
@@ -83,7 +85,10 @@ async function getStudentAccountByProfileId(profileId: string) {
   return rows[0] ?? null;
 }
 
-async function claimStudentAccountByEmail(profileId: string, email: string) {
+async function claimStudentAccountByEmail(
+  profileId: string,
+  email: string,
+): Promise<StudentPortalAccount | null> {
   const candidates = await sql<{ id: string }[]>`
     select id
     from public.student_accounts
@@ -104,7 +109,7 @@ async function claimStudentAccountByEmail(profileId: string, email: string) {
       and profile_id is null
   `;
 
-  return getStudentAccountByProfileId(profileId);
+  return await getStudentAccountByProfileId(profileId);
 }
 
 export async function getStudentPortalData(input: {

@@ -1,5 +1,8 @@
 import { requireStudentSession } from "@/lib/auth";
-import { getStudentPortalData } from "@/lib/student-portal-data";
+import {
+  getStudentPortalData,
+  type StudentPortalMaterial,
+} from "@/lib/student-portal-data";
 
 export default async function PortalMateriaisPage() {
   const { user, profile } = await requireStudentSession("/portal/materiais");
@@ -21,7 +24,7 @@ export default async function PortalMateriaisPage() {
     );
   }
 
-  const grouped = portal.materials.reduce<Record<number, typeof portal.materials>>(
+  const grouped = portal.materials.reduce<Record<number, StudentPortalMaterial[]>>(
     (acc, material) => {
       acc[material.week_number] ??= [];
       acc[material.week_number].push(material);
