@@ -40,10 +40,6 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               <br />
               PRECISA SER VISTO.
             </h1>
-            <p className="mt-4 text-center text-sm leading-7 text-[#efe8c9]/72">
-              Entre com e-mail e senha. Por ora, a prioridade e uma autenticacao
-              funcional e direta para admin e aluno.
-            </p>
 
             <form action={signInWithPassword} className="mt-10 space-y-4">
               <input type="hidden" name="next" value={nextPath} />
@@ -72,18 +68,6 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                 Entrar
               </button>
             </form>
-
-            <div className="mt-8 rounded-[1.5rem] border border-[#efe8c9]/14 bg-black/10 p-5">
-              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
-                Acessos de teste
-              </p>
-              <div className="mt-4 space-y-3 text-sm text-[#efe8c9]/72">
-                <p>Aluno: vitor.vitor.v@gmail.com</p>
-                <p>Senha: aluno123</p>
-                <p>Admin: vitorsirino@icloud.com</p>
-                <p>Senha: admin123</p>
-              </div>
-            </div>
 
             {params.error ? (
               <p className="mt-4 border-l-2 border-red-300/60 pl-3 text-sm text-red-100">

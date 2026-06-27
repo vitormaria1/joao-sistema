@@ -10,13 +10,6 @@ export async function proxy(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  if (pathname === "/crm") {
-    const url = request.nextUrl.clone();
-    url.pathname = "/bridge/crm";
-    url.search = search;
-    return NextResponse.rewrite(url);
-  }
-
   return NextResponse.next({
     request,
   });
