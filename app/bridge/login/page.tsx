@@ -32,10 +32,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
         <section className="flex items-center justify-center px-8 py-12">
           <div className="w-full max-w-md">
-            <p className="text-center text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]">
-              Joao Sistema
-            </p>
-            <h1 className="mt-4 text-center font-display text-3xl leading-tight text-[#efe8c9] sm:text-4xl">
+            <h1 className="text-center font-display text-3xl leading-tight text-[#efe8c9] sm:text-4xl">
               O TRABALHO DOS BONS
               <br />
               PRECISA SER VISTO.
