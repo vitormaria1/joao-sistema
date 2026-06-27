@@ -4,7 +4,7 @@ import {
   createStudentAccount,
   updateStudentProgress,
 } from "@/app/dashboard/actions";
-import { getCurrentProfile } from "@/lib/auth";
+import { requireAdminSession } from "@/lib/auth";
 import {
   getAttachments,
   getPrograms,
@@ -22,7 +22,7 @@ function getMethodPhase(weekNumber: number, durationWeeks: number) {
 }
 
 export default async function AlunosPage() {
-  const profile = await getCurrentProfile();
+  const { profile } = await requireAdminSession("/alunos");
   const [programs, students, attachments, tasks] = await Promise.all([
     getPrograms(),
     getStudents(),

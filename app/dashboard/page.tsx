@@ -1,5 +1,5 @@
 import { SiteShell } from "@/app/_components/site-shell";
-import { getCurrentProfile } from "@/lib/auth";
+import { requireAdminSession } from "@/lib/auth";
 import { getDashboardSummary, getLeads, getTasks } from "@/lib/dashboard-data";
 
 const stageLabels = {
@@ -34,7 +34,7 @@ function formatBar(value: number, max: number) {
 }
 
 export default async function DashboardPage() {
-  const profile = await getCurrentProfile();
+  const { profile } = await requireAdminSession("/dashboard");
   const [summary, leads, tasks] = await Promise.all([
     getDashboardSummary(),
     getLeads(),
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
               <p
                 className={`text-balance font-display uppercase leading-[0.95] ${
                   metric.label === "Ordem & previsibilidade"
-                    ? "max-w-[10.5ch] pr-3 text-[1.7rem] sm:max-w-[11ch] sm:text-[2.35rem]"
+                    ? "max-w-[11.5ch] pr-4 text-[1.45rem] sm:max-w-[12ch] sm:text-[1.95rem] lg:text-[2.1rem]"
                     : "max-w-[13ch] text-[2rem] sm:max-w-[14ch] sm:text-3xl"
                 }`}
               >

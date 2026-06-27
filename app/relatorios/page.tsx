@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { SiteShell } from "@/app/_components/site-shell";
-import { getCurrentProfile } from "@/lib/auth";
+import { requireAdminSession } from "@/lib/auth";
 import { getReportData } from "@/lib/dashboard-data";
 
 export default async function RelatoriosPage() {
-  const profile = await getCurrentProfile();
+  const { profile } = await requireAdminSession("/relatorios");
   const { summary, programs, students, tasks, leads, activities, attachments } = await getReportData();
 
   return (

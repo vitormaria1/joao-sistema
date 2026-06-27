@@ -1,11 +1,11 @@
 import { SiteShell } from "@/app/_components/site-shell";
 import { createMethodMaterial } from "@/app/dashboard/actions";
-import { getCurrentProfile } from "@/lib/auth";
+import { requireAdminSession } from "@/lib/auth";
 import { getMethodMaterials } from "@/lib/dashboard-data";
 import { weeklyFlow } from "@/lib/platform-data";
 
 export default async function MetodoPage() {
-  const profile = await getCurrentProfile();
+  const { profile } = await requireAdminSession("/metodo");
   const materials = await getMethodMaterials();
 
   return (

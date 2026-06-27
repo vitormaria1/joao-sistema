@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { sendMagicLink, signInWithPassword } from "@/app/bridge/login/actions";
+import { signInWithPassword } from "@/app/bridge/login/actions";
 import { getAuthenticatedUser } from "@/lib/auth";
 import { normalizeInternalPath } from "@/lib/paths";
 
@@ -41,8 +41,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               PRECISA SER VISTO.
             </h1>
             <p className="mt-4 text-center text-sm leading-7 text-[#efe8c9]/72">
-              Acesse o painel com identidade editorial, operação clara e visão de
-              progresso num só lugar.
+              Entre com e-mail e senha. Por ora, a prioridade e uma autenticacao
+              funcional e direta para admin e aluno.
             </p>
 
             <form action={signInWithPassword} className="mt-10 space-y-4">
@@ -73,36 +73,16 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               </button>
             </form>
 
-            <div className="mt-8 border-t border-[#efe8c9]/14 pt-6">
+            <div className="mt-8 rounded-[1.5rem] border border-[#efe8c9]/14 bg-black/10 p-5">
               <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
-                Link mágico
+                Acessos de teste
               </p>
-              <p className="mt-2 text-sm leading-6 text-[#efe8c9]/66">
-                Se preferir, solicite o acesso por e-mail.
-              </p>
-
-              <form action={sendMagicLink} className="mt-4 space-y-4">
-                <input type="hidden" name="next" value={nextPath} />
-                <input
-                  type="text"
-                  name="fullName"
-                  placeholder="Seu nome"
-                  className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="voce@exemplo.com"
-                  className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
-                />
-                <button
-                  type="submit"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-md bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-night)] transition hover:bg-[#e2d098]"
-                >
-                  Enviar link de acesso
-                </button>
-              </form>
+              <div className="mt-4 space-y-3 text-sm text-[#efe8c9]/72">
+                <p>Aluno: vitor.vitor.v@gmail.com</p>
+                <p>Senha: aluno123</p>
+                <p>Admin: vitorsirino@icloud.com</p>
+                <p>Senha: admin123</p>
+              </div>
             </div>
 
             {params.error ? (

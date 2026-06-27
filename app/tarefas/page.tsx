@@ -4,7 +4,7 @@ import {
   createTask,
   updateTaskStatus,
 } from "@/app/dashboard/actions";
-import { getCurrentProfile } from "@/lib/auth";
+import { requireAdminSession } from "@/lib/auth";
 import { getAttachments, getLeads, getStudents, getTasks } from "@/lib/dashboard-data";
 
 const statusLabels = {
@@ -30,7 +30,7 @@ const priorityLabels = {
 };
 
 export default async function TarefasPage() {
-  const profile = await getCurrentProfile();
+  const { profile } = await requireAdminSession("/tarefas");
   const [tasks, students, leads, attachments] = await Promise.all([
     getTasks(),
     getStudents(),
