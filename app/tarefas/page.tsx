@@ -1,9 +1,5 @@
 import { SiteShell } from "@/app/_components/site-shell";
-import {
-  createAttachment,
-  createTask,
-  updateTaskStatus,
-} from "@/app/dashboard/actions";
+import { createTask } from "@/app/dashboard/actions";
 import { requireProfile } from "@/lib/auth";
 import { getAttachments, getLeads, getStudents, getTasks } from "@/lib/dashboard-data";
 
@@ -59,6 +55,31 @@ export default async function TarefasPage() {
     },
     { label: "Anexos", value: attachmentsByTask.length },
   ];
+
+  const areaCounts = Object.entries(areaLabels).map(([area, label]) => ({
+    label,
+    value: tasks.filter((task) => task.area === area).length,
+  }));
+
+  const statusCounts = Object.entries(groupedTasks).map(([status, items]) => ({
+    label: statusLabels[status as keyof typeof statusLabels],
+    value: items.length,
+  }));
+
+  const maxAreaCount = Math.max(1, ...areaCounts.map((item) => item.value));
+  const maxStatusCount = Math.max(1, ...statusCounts.map((item) => item.value));
+  const completionRate =
+    tasks.length === 0
+      ? 0
+      : Math.round((groupedTasks.done.length / tasks.length) * 100);
+  const urgentOpenCount = tasks.filter(
+    (task) => task.priority === "urgente" && task.status !== "done",
+  ).length;
+
+  function formatBar(value: number, max: number) {
+    if (max <= 0) return "0%";
+    return `${Math.max(8, Math.round((value / max) * 100))}%`;
+  }
 
   return (
     <SiteShell
@@ -182,126 +203,92 @@ export default async function TarefasPage() {
 
         <article className="rounded-md border border-[#c4b27b]/24 bg-[#0f5d73] p-6">
           <p className="text-xs uppercase tracking-[0.3em] text-[#cfbc79]">
-            Fluxo
+            Gráficos
           </p>
-          <h2 className="mt-2 font-display text-3xl text-[#f0e2b0]">Kanban atual</h2>
-          <div className="mt-6 grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-            {(
-              Object.entries(groupedTasks) as [keyof typeof groupedTasks, (typeof tasks)[number][]][]
-            ).map(([status, items]) => (
-              <div
-                key={status}
-                className="rounded-md border border-white/10 bg-black/12 p-4"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-[#f6ebc5]">{statusLabels[status]}</h3>
-                  <span className="rounded-sm bg-white/10 px-2 py-1 text-xs text-[#efe2b3]/80">
-                    {items.length}
-                  </span>
-                </div>
+          <h2 className="mt-2 font-display text-3xl text-[#f0e2b0]">Pulso das tarefas</h2>
 
-                <div className="mt-3 space-y-3">
-                  {items.length === 0 ? (
-                    <p className="text-sm text-[#efe2b3]/60">Sem tarefas.</p>
-                  ) : (
-                    items.map((task) => {
-                      const taskAttachments = attachmentsByTask
-                        .filter((item) => item.entity_id === task.id)
-                        .slice(0, 2);
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <div className="rounded-md border border-white/10 bg-black/12 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-[#cfbc79]/90">
+                Conclusão
+              </p>
+              <p className="mt-3 font-display text-5xl text-[#f0e2b0]">
+                {String(completionRate).padStart(2, "0")}%
+              </p>
+              <p className="mt-2 text-sm text-[#efe2b3]/70">
+                Percentual já finalizado dentro do volume total.
+              </p>
+            </div>
 
-                      return (
-                        <article
-                          key={task.id}
-                          className="rounded-md border border-white/10 bg-white/5 p-3"
-                        >
-                          <p className="font-medium text-[#f6ebc5]">{task.title}</p>
-                          <p className="text-xs text-[#efe2b3]/60">
-                            {areaLabels[task.area]} · {priorityLabels[task.priority]}
-                          </p>
-                          <p className="mt-2 text-sm text-[#f6ebc5]/75">
-                            {task.student_name || task.lead_name || "Sem vínculo"}
-                          </p>
+            <div className="rounded-md border border-white/10 bg-black/12 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-[#cfbc79]/90">
+                Pressão
+              </p>
+              <p className="mt-3 font-display text-5xl text-[#f0e2b0]">
+                {String(urgentOpenCount).padStart(2, "0")}
+              </p>
+              <p className="mt-2 text-sm text-[#efe2b3]/70">
+                Tarefas urgentes ainda abertas para ação imediata.
+              </p>
+            </div>
 
-                          <div className="mt-3 space-y-2">
-                            {taskAttachments.map((item) => (
-                              <a
-                                key={item.id}
-                                href={item.file_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="block rounded-sm border border-white/10 bg-white/5 px-3 py-2 text-xs text-[#f6ebc5]/78"
-                              >
-                                {item.title} · {item.kind}
-                              </a>
-                            ))}
-                          </div>
+            <div className="rounded-md border border-white/10 bg-black/12 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-[#cfbc79]/90">
+                Arquivo
+              </p>
+              <p className="mt-3 font-display text-5xl text-[#f0e2b0]">
+                {String(attachmentsByTask.length).padStart(2, "0")}
+              </p>
+              <p className="mt-2 text-sm text-[#efe2b3]/70">
+                Materiais e anexos vinculados às execuções.
+              </p>
+            </div>
+          </div>
 
-                          <details className="mt-3 rounded-sm border border-white/10 bg-white/5 px-3 py-2">
-                            <summary className="cursor-pointer list-none text-xs text-[#f6ebc5]/78">
-                              Mover / anexar
-                            </summary>
-
-                            <form action={updateTaskStatus} className="mt-3">
-                              <input type="hidden" name="taskId" value={task.id} />
-                              <select
-                                name="status"
-                                defaultValue={task.status}
-                                className="h-10 w-full rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
-                              >
-                                {Object.entries(statusLabels).map(([value, label]) => (
-                                  <option key={value} value={value} className="text-black">
-                                    {label}
-                                  </option>
-                                ))}
-                              </select>
-                              <button
-                                type="submit"
-                                className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-sm bg-white/10 text-xs text-white"
-                              >
-                                Atualizar
-                              </button>
-                            </form>
-
-                            <form action={createAttachment} className="mt-3 grid gap-2">
-                              <input type="hidden" name="entityType" value="task" />
-                              <input type="hidden" name="entityId" value={task.id} />
-                              <input
-                                name="title"
-                                placeholder="Título do material"
-                                className="h-10 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
-                              />
-                              <input
-                                name="fileUrl"
-                                placeholder="URL do arquivo"
-                                className="h-10 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
-                              />
-                              <select
-                                name="kind"
-                                defaultValue="attachment"
-                                className="h-10 rounded-sm border border-white/10 bg-white/5 px-3 text-sm text-white"
-                              >
-                                <option value="attachment" className="text-black">
-                                  Anexo
-                                </option>
-                                <option value="material" className="text-black">
-                                  Material
-                                </option>
-                              </select>
-                              <button
-                                type="submit"
-                                className="inline-flex h-10 items-center justify-center rounded-sm bg-white/10 text-xs text-white"
-                              >
-                                Adicionar
-                              </button>
-                            </form>
-                          </details>
-                        </article>
-                      );
-                    })
-                  )}
-                </div>
+          <div className="mt-6 grid gap-6 xl:grid-cols-2">
+            <div className="rounded-md border border-white/10 bg-black/12 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-[#cfbc79]/90">
+                Por status
+              </p>
+              <div className="mt-4 space-y-4">
+                {statusCounts.map((item) => (
+                  <div key={item.label} className="grid gap-2">
+                    <div className="flex items-center justify-between text-sm text-[#e9ddb8]/82">
+                      <span>{item.label}</span>
+                      <span>{item.value}</span>
+                    </div>
+                    <div className="h-3 rounded-sm bg-black/20">
+                      <div
+                        className="h-3 rounded-sm bg-[#d8c588]"
+                        style={{ width: formatBar(item.value, maxStatusCount) }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div className="rounded-md border border-white/10 bg-black/12 p-4">
+              <p className="text-xs uppercase tracking-[0.24em] text-[#cfbc79]/90">
+                Por área
+              </p>
+              <div className="mt-4 space-y-4">
+                {areaCounts.map((item) => (
+                  <div key={item.label} className="grid gap-2">
+                    <div className="flex items-center justify-between text-sm text-[#e9ddb8]/82">
+                      <span>{item.label}</span>
+                      <span>{item.value}</span>
+                    </div>
+                    <div className="h-3 rounded-sm bg-black/20">
+                      <div
+                        className="h-3 rounded-sm bg-[#cfbc79]"
+                        style={{ width: formatBar(item.value, maxAreaCount) }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </article>
       </section>

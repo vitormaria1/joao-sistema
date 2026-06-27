@@ -99,7 +99,7 @@ export default async function DashboardPage() {
               key={metric.label}
               className="min-h-[168px] rounded-md border border-[#d7c48b] bg-[#045973] p-6 text-[#caa95d] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
             >
-              <p className="max-w-[16ch] font-display text-3xl leading-[0.95] uppercase">
+              <p className="max-w-[13ch] text-balance font-display text-[2rem] leading-[0.95] uppercase sm:max-w-[14ch] sm:text-3xl">
                 {metric.label}
               </p>
               <p className="mt-4 max-w-[34ch] text-sm leading-5 text-[#dcc78d]">
