@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { signOut } from "@/app/bridge/login/actions";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
@@ -30,7 +31,7 @@ export function SiteShell({
     <main
       className={
         dark
-          ? "min-h-screen bg-[linear-gradient(180deg,#17181d_0%,#20222a_100%)] text-[var(--color-paper)]"
+          ? "min-h-screen bg-[var(--color-night)] text-[var(--color-paper)]"
           : "min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)]"
       }
     >
@@ -38,38 +39,46 @@ export function SiteShell({
         <aside
           className={
             dark
-              ? "rounded-[2rem] border border-white/10 bg-white/5 p-5 backdrop-blur lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-[280px]"
-              : "rounded-[2rem] border border-black/8 bg-white p-5 shadow-[0_16px_50px_rgba(0,0,0,0.06)] lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-[280px]"
+              ? "overflow-hidden rounded-md border border-[var(--color-gold)]/24 bg-[var(--color-teal)] shadow-[var(--shadow-panel)] lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-[280px]"
+              : "overflow-hidden rounded-[2rem] border border-black/8 bg-white p-5 shadow-[0_16px_50px_rgba(0,0,0,0.06)] lg:sticky lg:top-6 lg:h-[calc(100vh-3rem)] lg:w-[280px]"
           }
         >
           <div className="flex h-full flex-col">
-            <div>
+            <div
+              className={
+                dark
+                  ? "border-b border-[var(--color-gold)]/22 px-5 py-5"
+                  : undefined
+              }
+            >
               <p
                 className={
                   dark
-                    ? "text-xs uppercase tracking-[0.35em] text-[var(--color-sand)]"
+                    ? "text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]"
                     : "text-xs uppercase tracking-[0.35em] text-[var(--color-teal)]"
                 }
               >
                 Joao Sistema
               </p>
               <h1 className="mt-2 font-display text-3xl">{title}</h1>
-              <p
-                className={
-                  dark
-                    ? "mt-3 text-sm text-white/68"
-                    : "mt-3 text-sm text-black/60"
-                }
-              >
-                {subtitle}
-              </p>
+              {subtitle ? (
+                <p
+                  className={
+                    dark
+                      ? "mt-3 text-sm leading-6 text-[var(--color-gold-soft)]/72"
+                      : "mt-3 text-sm text-black/60"
+                  }
+                >
+                  {subtitle}
+                </p>
+              ) : null}
             </div>
 
-            {pathname === "/dashboard" || pathname === "/metodo" ? (
+            {dark && (pathname === "/dashboard" || pathname === "/metodo") ? (
               <div
                 className={
                   dark
-                    ? "mt-6 rounded-[1.4rem] border border-[var(--color-gold)]/30 bg-[var(--color-gold)]/12 px-4 py-3"
+                    ? "mx-5 mt-5 rounded-md border border-[var(--color-gold)]/24 bg-black/12 px-4 py-3"
                     : "mt-6 rounded-[1.4rem] border border-[var(--color-teal)]/20 bg-[var(--color-teal)]/8 px-4 py-3"
                 }
               >
@@ -82,19 +91,23 @@ export function SiteShell({
               </div>
             ) : null}
 
-            <nav className="mt-8 grid gap-2">
+            <nav className={dark ? "mt-5 grid gap-2 px-5" : "mt-8 grid gap-2"}>
               {navItems.map((item) => {
                 const active = pathname === item.href;
                 const baseClasses =
-                  "flex h-11 items-center justify-between rounded-full border px-4 text-sm transition";
+                  dark
+                    ? "flex h-11 items-center justify-between rounded-sm border px-4 text-sm transition"
+                    : "flex h-11 items-center justify-between rounded-full border px-4 text-sm transition";
                 const neutralClasses = dark
-                  ? "border-white/10 text-white/78 hover:bg-white/5"
+                  ? "border-[var(--color-gold)]/14 text-[var(--color-gold-soft)] hover:bg-black/12"
                   : "border-black/10 text-black/75 hover:bg-black/5";
 
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
+                    target={item.href === "/crm" ? "_blank" : undefined}
+                    rel={item.href === "/crm" ? "noreferrer" : undefined}
                     className={
                       active
                         ? `${baseClasses} ${neutralClasses} font-medium ring-1 ring-current/10`
@@ -109,15 +122,21 @@ export function SiteShell({
               })}
             </nav>
 
-            <div
-              className={
-                dark
-                  ? "mt-auto rounded-[1.4rem] border border-white/10 bg-black/10 p-4 text-sm text-white/58"
-                  : "mt-auto rounded-[1.4rem] border border-black/8 bg-[var(--color-paper)] p-4 text-sm text-black/52"
-              }
-            >
-              Painel de operação
-            </div>
+            {dark ? (
+              <form action={signOut} className="mt-auto px-5 pb-5 pt-5">
+                <button
+                  type="submit"
+                  className="flex w-full items-center justify-between rounded-sm border border-[var(--color-gold)]/14 bg-black/12 p-4 text-sm text-[var(--color-gold-soft)] transition hover:bg-black/22"
+                >
+                  <span>Sair</span>
+                  <span aria-hidden="true">↩</span>
+                </button>
+              </form>
+            ) : (
+              <div className="mt-auto rounded-[1.4rem] border border-black/8 bg-[var(--color-paper)] p-4 text-sm text-black/52">
+                Painel de operação
+              </div>
+            )}
           </div>
         </aside>
 

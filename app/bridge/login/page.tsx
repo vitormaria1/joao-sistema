@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { sendMagicLink, signInWithPassword } from "@/app/bridge/login/actions";
 import { getAuthenticatedUser } from "@/lib/auth";
@@ -22,137 +21,101 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(31,103,119,0.2),transparent_26%),linear-gradient(180deg,#17181d_0%,#22242b_100%)] px-6 py-10 text-[var(--color-paper)]">
-      <div className="mx-auto grid min-h-[calc(100vh-5rem)] w-full max-w-6xl gap-6 lg:grid-cols-[1fr_420px]">
-        <section className="flex flex-col justify-between rounded-[2rem] border border-white/10 bg-white/5 p-8">
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-[var(--color-sand)]">
-              Joao Sistema
-            </p>
-            <h1 className="mt-5 max-w-3xl font-display text-6xl leading-none">
-              Clareza operacional para mentoria, vendas e progresso dos clientes.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/72">
-              Entre por link mágico no e-mail. O primeiro acesso já cria o seu
-              perfil automaticamente.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              "Acompanhamento semanal do Candeeiro",
-              "CRM comercial com follow-up",
-              "Tarefas e materiais num só lugar",
-            ].map((item) => (
-              <div
-                key={item}
-                className="rounded-[1.5rem] border border-white/10 bg-black/15 p-4 text-sm leading-6 text-white/75"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
+    <main className="min-h-screen bg-[var(--color-night-soft)] text-[var(--color-paper)]">
+      <div className="grid min-h-screen lg:grid-cols-2">
+        <section
+          className="relative min-h-[42vh] bg-[var(--color-night-soft)] bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/login-art.png')" }}
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,24,32,0.2),rgba(13,24,32,0.52))]" />
         </section>
 
-        <section className="rounded-[2rem] bg-[#f3ede2] p-7 text-[var(--color-ink)] shadow-[0_25px_80px_rgba(0,0,0,0.22)]">
-          <div className="mb-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
-              Acesso
+        <section className="flex items-center justify-center px-8 py-12">
+          <div className="w-full max-w-md">
+            <p className="text-center text-xs uppercase tracking-[0.35em] text-[var(--color-gold)]">
+              Joao Sistema
             </p>
-            <h2 className="mt-2 font-display text-4xl leading-none">
-              Entrar por e-mail
-            </h2>
-          </div>
+            <h1 className="mt-4 text-center font-display text-3xl leading-tight text-[#efe8c9] sm:text-4xl">
+              O TRABALHO DOS BONS
+              <br />
+              PRECISA SER VISTO.
+            </h1>
+            <p className="mt-4 text-center text-sm leading-7 text-[#efe8c9]/72">
+              Acesse o painel com identidade editorial, operação clara e visão de
+              progresso num só lugar.
+            </p>
 
-          <form action={sendMagicLink} className="space-y-4">
-            <input type="hidden" name="next" value={nextPath} />
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium">Nome</span>
-              <input
-                type="text"
-                name="fullName"
-                placeholder="Seu nome"
-                className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
-              />
-            </label>
-
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium">E-mail</span>
+            <form action={signInWithPassword} className="mt-10 space-y-4">
+              <input type="hidden" name="next" value={nextPath} />
               <input
                 type="email"
                 name="email"
                 required
-                placeholder="voce@exemplo.com"
-                className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
+                defaultValue="teste.nav@varinteligencia.com"
+                placeholder="E-mail"
+                className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
               />
-            </label>
 
-            <button
-              type="submit"
-              className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[var(--color-ink)] px-6 text-sm font-semibold text-[var(--color-paper)] transition hover:bg-black"
-            >
-              Enviar link de acesso
-            </button>
-          </form>
+              <input
+                type="password"
+                name="password"
+                required
+                autoComplete="current-password"
+                placeholder="Senha"
+                className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
+              />
 
-          <div className="my-6 border-t border-black/10 pt-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
-              Acesso de teste
-            </p>
-            <p className="mt-2 text-sm leading-6 text-black/60">
-              Use este login para validar a navegação sem depender de e-mail.
-            </p>
+              <button
+                type="submit"
+                className="inline-flex h-12 w-full items-center justify-center border border-[#efe8c9] bg-transparent px-6 text-sm font-semibold text-[#efe8c9] transition hover:bg-[#efe8c9] hover:text-[#1b232d]"
+              >
+                Entrar
+              </button>
+            </form>
 
-            <form action={signInWithPassword} className="mt-4 space-y-4">
-              <input type="hidden" name="next" value={nextPath} />
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium">E-mail</span>
+            <div className="mt-8 border-t border-[#efe8c9]/14 pt-6">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
+                Link mágico
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[#efe8c9]/66">
+                Se preferir, solicite o acesso por e-mail.
+              </p>
+
+              <form action={sendMagicLink} className="mt-4 space-y-4">
+                <input type="hidden" name="next" value={nextPath} />
+                <input
+                  type="text"
+                  name="fullName"
+                  placeholder="Seu nome"
+                  className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
+                />
                 <input
                   type="email"
                   name="email"
                   required
-                  defaultValue="teste.nav@varinteligencia.com"
-                  className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
+                  placeholder="voce@exemplo.com"
+                  className="h-12 w-full rounded-md border border-[#efe8c9]/26 bg-[#1b232d]/52 px-4 text-sm text-[#f6f1dc] outline-none transition placeholder:text-[#f6f1dc]/42 focus:border-[#efe8c9]"
                 />
-              </label>
+                <button
+                  type="submit"
+                  className="inline-flex h-12 w-full items-center justify-center rounded-md bg-[var(--color-gold)] px-6 text-sm font-semibold text-[var(--color-night)] transition hover:bg-[#e2d098]"
+                >
+                  Enviar link de acesso
+                </button>
+              </form>
+            </div>
 
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium">Senha</span>
-                <input
-                  type="password"
-                  name="password"
-                  required
-                  autoComplete="current-password"
-                  placeholder="Senha de teste"
-                  className="h-12 w-full rounded-2xl border border-black/10 bg-white px-4 outline-none transition focus:border-[var(--color-teal)]"
-                />
-              </label>
+            {params.error ? (
+              <p className="mt-4 border-l-2 border-red-300/60 pl-3 text-sm text-red-100">
+                {params.error}
+              </p>
+            ) : null}
 
-              <button
-                type="submit"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full border border-[var(--color-ink)] bg-transparent px-6 text-sm font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-ink)] hover:text-[var(--color-paper)]"
-              >
-                Entrar com o login de teste
-              </button>
-            </form>
-          </div>
-
-          {params.error ? (
-            <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-800">
-              {params.error}
-            </p>
-          ) : null}
-
-          {params.success ? (
-            <p className="mt-4 rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800">
-              {params.success}
-            </p>
-          ) : null}
-
-          <div className="mt-6 text-sm text-black/60">
-            <Link href="/" className="underline underline-offset-4">
-              Voltar para a apresentação
-            </Link>
+            {params.success ? (
+              <p className="mt-4 border-l-2 border-emerald-300/60 pl-3 text-sm text-emerald-100">
+                {params.success}
+              </p>
+            ) : null}
           </div>
         </section>
       </div>

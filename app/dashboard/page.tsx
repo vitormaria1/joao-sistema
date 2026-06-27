@@ -63,10 +63,21 @@ export default async function DashboardPage() {
   const maxTaskCount = Math.max(1, ...taskStatusCounts.map((item) => item.value));
 
   const metrics = [
-    { label: "Alunos ativos", value: summary.activeStudents },
-    { label: "Leads", value: summary.leads },
-    { label: "Tarefas abertas", value: summary.openTasks },
-    { label: "Programas ativos", value: summary.activePrograms },
+    {
+      label: "Por tua luz a vista",
+      description: "Alunos ativos em acompanhamento no sistema.",
+      value: summary.activeStudents,
+    },
+    {
+      label: "Ordem & previsibilidade",
+      description: "Leads em andamento no funil comercial.",
+      value: summary.leads,
+    },
+    {
+      label: "Domínio das ações",
+      description: "Tarefas abertas para execução e revisão.",
+      value: summary.openTasks,
+    },
   ];
 
   return (
@@ -75,14 +86,50 @@ export default async function DashboardPage() {
       subtitle={`${profile.full_name} · números, gráficos e tarefas do dia.`}
       accent="dark"
     >
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="overflow-hidden rounded-lg border border-[var(--color-gold)]/35 bg-[var(--color-gold)] text-[#153d4c]">
+        <div
+          className="relative min-h-[280px] bg-cover bg-center bg-no-repeat sm:min-h-[360px]"
+          style={{ backgroundImage: "url('/dashboard-bg.png')" }}
+        >
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,21,28,0.12),rgba(10,21,28,0.52))]" />
+        </div>
+
+        <div className="grid gap-4 px-4 py-4 lg:grid-cols-3">
+          {metrics.map((metric) => (
+            <article
+              key={metric.label}
+              className="min-h-[168px] rounded-md border border-[#d7c48b] bg-[var(--color-teal)] p-6 text-[var(--color-gold)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
+            >
+              <p
+                className={`text-balance font-display uppercase leading-[0.95] ${
+                  metric.label === "Ordem & previsibilidade"
+                    ? "max-w-[10.5ch] pr-3 text-[1.7rem] sm:max-w-[11ch] sm:text-[2.35rem]"
+                    : "max-w-[13ch] text-[2rem] sm:max-w-[14ch] sm:text-3xl"
+                }`}
+              >
+                {metric.label}
+              </p>
+              <p className="mt-4 max-w-[34ch] text-sm leading-5 text-[#dcc78d]">
+                {metric.description}
+              </p>
+              <p className="mt-5 font-display text-5xl leading-none text-[var(--color-gold-soft)]">
+                {String(metric.value).padStart(2, "0")}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {metrics.map((metric) => (
           <article
             key={metric.label}
-            className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03))] p-5"
+            className="rounded-md border border-[var(--color-gold)]/24 bg-[var(--color-teal)] p-5"
           >
-            <p className="text-sm text-white/60">{metric.label}</p>
-            <p className="mt-4 font-display text-5xl text-[var(--color-gold)]">
+            <p className="text-sm text-[var(--color-gold-soft)]/70">
+              {metric.description}
+            </p>
+            <p className="mt-4 font-display text-5xl text-[var(--color-gold-soft)]">
               {String(metric.value).padStart(2, "0")}
             </p>
           </article>
@@ -90,22 +137,24 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+        <article className="rounded-md border border-[var(--color-gold)]/24 bg-[var(--color-teal)] p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
             Gráfico
           </p>
-          <h2 className="mt-2 font-display text-3xl">Leads por etapa</h2>
+          <h2 className="mt-2 font-display text-3xl text-[var(--color-gold-soft)]">
+            Leads por etapa
+          </h2>
 
           <div className="mt-6 space-y-4">
             {leadStageCounts.map((item) => (
               <div key={item.label} className="grid gap-2">
-                <div className="flex items-center justify-between text-sm text-white/70">
+                <div className="flex items-center justify-between text-sm text-[var(--color-gold-soft)]/82">
                   <span>{item.label}</span>
                   <span>{item.value}</span>
                 </div>
-                <div className="h-3 rounded-full bg-white/8">
+                <div className="h-3 rounded-sm bg-black/20">
                   <div
-                    className="h-3 rounded-full bg-[var(--color-gold)]"
+                    className="h-3 rounded-sm bg-[var(--color-gold)]"
                     style={{ width: formatBar(item.value, maxLeadCount) }}
                   />
                 </div>
@@ -114,22 +163,24 @@ export default async function DashboardPage() {
           </div>
         </article>
 
-        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+        <article className="rounded-md border border-[var(--color-gold)]/24 bg-[var(--color-teal)] p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
             Gráfico
           </p>
-          <h2 className="mt-2 font-display text-3xl">Tarefas por status</h2>
+          <h2 className="mt-2 font-display text-3xl text-[var(--color-gold-soft)]">
+            Tarefas por status
+          </h2>
 
           <div className="mt-6 space-y-4">
             {taskStatusCounts.map((item) => (
               <div key={item.label} className="grid gap-2">
-                <div className="flex items-center justify-between text-sm text-white/70">
+                <div className="flex items-center justify-between text-sm text-[var(--color-gold-soft)]/82">
                   <span>{item.label}</span>
                   <span>{item.value}</span>
                 </div>
-                <div className="h-3 rounded-full bg-white/8">
+                <div className="h-3 rounded-sm bg-black/20">
                   <div
-                    className="h-3 rounded-full bg-[var(--color-teal)]"
+                    className="h-3 rounded-sm bg-[#d8c588]"
                     style={{ width: formatBar(item.value, maxTaskCount) }}
                   />
                 </div>
@@ -140,32 +191,36 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-        <article className="rounded-[2rem] border border-white/10 bg-white/5 p-6">
-          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-sand)]">
+        <article className="rounded-md border border-[var(--color-gold)]/24 bg-[var(--color-teal)] p-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
             Tarefas do dia
           </p>
-          <h2 className="mt-2 font-display text-3xl">Fila de hoje</h2>
+          <h2 className="mt-2 font-display text-3xl text-[var(--color-gold-soft)]">
+            Fila de hoje
+          </h2>
 
           <div className="mt-6 space-y-3">
             {tasksOfDay.length === 0 ? (
-              <p className="text-sm text-white/60">Nenhuma tarefa aberta hoje.</p>
+              <p className="text-sm text-[var(--color-gold-soft)]/75">
+                Nenhuma tarefa aberta hoje.
+              </p>
             ) : (
               tasksOfDay.map((task) => (
                 <article
                   key={task.id}
-                  className="rounded-[1.5rem] border border-white/10 bg-black/10 p-4"
+                  className="rounded-md border border-white/10 bg-black/12 p-4"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="font-medium">{task.title}</p>
-                      <p className="mt-1 text-sm text-white/60">
+                      <p className="font-medium text-[#f6ebc5]">{task.title}</p>
+                      <p className="mt-1 text-sm text-[#d7caa2]/70">
                         {task.area} · {task.priority}
                       </p>
-                      <p className="mt-2 text-sm text-white/72">
+                      <p className="mt-2 text-sm text-[#f6ebc5]/78">
                         {task.student_name || task.lead_name || "Sem vínculo"}
                       </p>
                     </div>
-                    <span className="rounded-full bg-[var(--color-gold)]/15 px-3 py-1 text-xs text-[var(--color-gold)]">
+                    <span className="rounded-sm bg-[var(--color-gold)]/16 px-3 py-1 text-xs text-[var(--color-gold-soft)]">
                       {taskStatusLabels[task.status]}
                     </span>
                   </div>
@@ -175,24 +230,28 @@ export default async function DashboardPage() {
           </div>
         </article>
 
-        <article className="rounded-[2rem] border border-white/10 bg-[#f3ede2] p-6 text-[var(--color-ink)]">
+        <article className="rounded-md border border-[var(--color-gold)]/35 bg-[var(--color-gold)] p-6 text-[#153d4c]">
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-teal)]">
             Resumo
           </p>
           <h2 className="mt-2 font-display text-3xl">Leitura rápida</h2>
 
           <div className="mt-6 space-y-3">
-            <div className="rounded-[1.25rem] border border-black/8 bg-white px-4 py-3">
-              <p className="text-sm text-black/55">Leads em andamento</p>
+            <div className="rounded-md border border-[#d8c78f] bg-[var(--color-gold-soft)] px-4 py-3">
+              <p className="text-sm text-[#153d4c]/65">Leads em andamento</p>
               <p className="mt-1 text-2xl font-semibold">{summary.leads}</p>
             </div>
-            <div className="rounded-[1.25rem] border border-black/8 bg-white px-4 py-3">
-              <p className="text-sm text-black/55">Tarefas abertas</p>
+            <div className="rounded-md border border-[#d8c78f] bg-[var(--color-gold-soft)] px-4 py-3">
+              <p className="text-sm text-[#153d4c]/65">Tarefas abertas</p>
               <p className="mt-1 text-2xl font-semibold">{summary.openTasks}</p>
             </div>
-            <div className="rounded-[1.25rem] border border-black/8 bg-white px-4 py-3">
-              <p className="text-sm text-black/55">Alunos ativos</p>
+            <div className="rounded-md border border-[#d8c78f] bg-[var(--color-gold-soft)] px-4 py-3">
+              <p className="text-sm text-[#153d4c]/65">Alunos ativos</p>
               <p className="mt-1 text-2xl font-semibold">{summary.activeStudents}</p>
+            </div>
+            <div className="rounded-md border border-[#d8c78f] bg-[var(--color-gold-soft)] px-4 py-3">
+              <p className="text-sm text-[#153d4c]/65">Programas ativos</p>
+              <p className="mt-1 text-2xl font-semibold">{summary.activePrograms}</p>
             </div>
           </div>
         </article>
