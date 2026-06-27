@@ -65,3 +65,111 @@ body {
   background: #f4eee3;
   color: #153d4c;
 }
+
+.dark {
+  --t-buttons-secondary-text-color: #d8c588;
+  --t-accent-primary: rgba(216, 197, 136, 0.28);
+  --t-accent-secondary: rgba(207, 188, 121, 0.34);
+  --t-accent-tertiary: rgba(216, 197, 136, 0.18);
+  --t-accent-quaternary: rgba(216, 197, 136, 0.12);
+  --t-accent-accent3570: #cfbc79;
+  --t-accent-accent4060: #d8c588;
+  --t-accent-accent1: #08181f;
+  --t-accent-accent2: #0d232c;
+  --t-accent-accent3: #12303b;
+  --t-accent-accent4: #153d4c;
+  --t-accent-accent5: #045973;
+  --t-accent-accent6: #347d89;
+  --t-accent-accent7: #72a6a9;
+  --t-accent-accent8: #9bc2b9;
+  --t-accent-accent9: #cfbc79;
+  --t-accent-accent10: #dccb93;
+  --t-accent-accent11: #efe2b3;
+  --t-accent-accent12: #f7edc5;
+  --t-background-primary: #0d1820;
+  --t-background-secondary: #10242d;
+  --t-background-tertiary: #15303a;
+  --t-background-quaternary: #1d4350;
+  --t-background-inverted-primary: #f4eee3;
+  --t-background-inverted-secondary: #e9decb;
+  --t-background-danger: #462424;
+  --t-background-transparent-primary: rgba(244, 238, 227, 0.14);
+  --t-background-transparent-secondary: rgba(244, 238, 227, 0.1);
+  --t-background-transparent-strong: rgba(207, 188, 121, 0.28);
+  --t-background-transparent-medium: rgba(207, 188, 121, 0.16);
+  --t-background-transparent-light: rgba(207, 188, 121, 0.1);
+  --t-background-transparent-lighter: rgba(207, 188, 121, 0.06);
+  --t-background-transparent-blue: rgba(4, 89, 115, 0.28);
+  --t-background-transparent-orange: rgba(207, 188, 121, 0.22);
+  --t-background-transparent-success: rgba(52, 125, 137, 0.22);
+  --t-background-overlay-primary: rgba(0, 0, 0, 0.78);
+  --t-background-overlay-secondary: rgba(0, 0, 0, 0.48);
+  --t-background-overlay-tertiary: rgba(0, 0, 0, 0.2);
+  --t-border-color-strong: #347d89;
+  --t-border-color-medium: #1f4d59;
+  --t-border-color-light: #173842;
+  --t-border-color-secondary-inverted: #d8c7a5;
+  --t-border-color-inverted: #f4eee3;
+  --t-border-color-blue: #cfbc79;
+  --t-box-shadow-color: rgba(0, 0, 0, 0.28);
+  --t-font-color-primary: #f4eee3;
+  --t-font-color-secondary: rgba(244, 238, 227, 0.82);
+  --t-font-color-tertiary: rgba(244, 238, 227, 0.62);
+  --t-font-color-light: rgba(244, 238, 227, 0.48);
+  --t-font-color-extra-light: rgba(244, 238, 227, 0.34);
+  --t-font-color-inverted: #153d4c;
+  --t-font-color-danger: #f0a39a;
+  --t-snack-bar-success-color: #efe2b3;
+  --t-snack-bar-success-background-color: rgba(4, 89, 115, 0.28);
+  --t-snack-bar-info-color: #efe2b3;
+  --t-snack-bar-info-background-color: rgba(4, 89, 115, 0.28);
+  --t-snack-bar-warning-color: #efe2b3;
+  --t-snack-bar-warning-background-color: rgba(207, 188, 121, 0.22);
+  --t-snack-bar-default-color: #f4eee3;
+  --t-snack-bar-default-background-color: rgba(244, 238, 227, 0.1);
+  --t-tag-text-turquoise: #efe2b3;
+  --t-tag-text-blue: #efe2b3;
+  --t-tag-text-gold: #efe2b3;
+  --t-tag-background-turquoise: rgba(4, 89, 115, 0.28);
+  --t-tag-background-blue: rgba(4, 89, 115, 0.28);
+  --t-tag-background-gold: rgba(207, 188, 121, 0.2);
+  --t--illustration-icon-color-blue: #cfbc79;
+  --t--illustration-icon-fill-blue: #045973;
+}
+
+.dark body {
+  background: #0d1820;
+  color: #f4eee3;
+}
+
+[data-click-outside-id] {
+  background:
+    linear-gradient(180deg, rgba(4, 89, 115, 0.96) 0%, rgba(15, 93, 115, 0.98) 100%);
+  border-right: 1px solid rgba(216, 197, 136, 0.3);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+.dark [data-click-outside-id] {
+  background:
+    linear-gradient(180deg, rgba(7, 34, 43, 0.98) 0%, rgba(10, 24, 32, 0.99) 100%);
+  border-right: 1px solid rgba(52, 125, 137, 0.45);
+  box-shadow: inset -1px 0 0 rgba(216, 197, 136, 0.08);
+}
+
+[data-click-outside-id] button,
+[data-click-outside-id] a {
+  color: #efe2b3;
+}
+
+[data-click-outside-id] button:hover,
+[data-click-outside-id] a:hover {
+  color: #f7edc5;
+}
+
+[data-click-outside-id] [style*="background-color: var(--t-gray-scale-gray3)"] {
+  background-color: rgba(216, 197, 136, 0.18) !important;
+}
+
+.dark [data-click-outside-id] [style*="background-color: var(--t-gray-scale-gray3)"] {
+  background-color: rgba(52, 125, 137, 0.28) !important;
+}
